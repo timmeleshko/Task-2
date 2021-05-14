@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/newsFragment"
+        android:title="@string/news"
+        android:icon="@drawable/ic_news" />
+    <item
+        android:id="@+id/artistFragment"
+        android:title="@string/artist"
+        android:icon="@drawable/ic_artist" />
+    <item
+        android:id="@+id/worksFragment"
+        android:title="@string/works"
+        android:icon="@drawable/ic_works" />
+    <item
+        android:id="@+id/expositionsFragment"
+        android:title="@string/expositions"
+        android:icon="@drawable/ic_expositions" />
+    <item
+        android:id="@+id/infoFragment"
+        android:title="@string/info"
+        android:icon="@drawable/ic_info" />
+</menu>
