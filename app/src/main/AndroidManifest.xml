@@ -16,9 +16,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ArtActivity">
+        <activity android:name=".ArtActivity"
+            android:label="@string/art_activity">
         </activity>
-        <activity android:name=".ImageViewActivity">
+        <activity android:name=".ImageViewActivity"
+            android:label="@string/image_view_activity">
         </activity>
     </application>
 

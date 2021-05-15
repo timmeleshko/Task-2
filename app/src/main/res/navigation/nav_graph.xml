@@ -63,12 +63,10 @@
         tools:layout="@layout/fragment_detail" />
     <activity
         android:id="@+id/artActivity"
-        android:name="by.senla.timmeleshko.task2.ArtActivity"
-        android:label="@string/art_activity" />
+        android:name="by.senla.timmeleshko.task2.ArtActivity" />
     <activity
         android:id="@+id/imageViewActivity"
-        android:name="by.senla.timmeleshko.task2.ImageViewActivity"
-        android:label="@string/image_view_activity" />
+        android:name="by.senla.timmeleshko.task2.ImageViewActivity" />
     <fragment
         android:id="@+id/postFragment"
         android:name="by.senla.timmeleshko.task2.PostFragment"
