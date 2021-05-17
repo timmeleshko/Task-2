@@ -28,6 +28,10 @@ open class RecyclerViewAdapter(private var listItems: List<Work>) : RecyclerView
         return listItems.size
     }
 
+    fun updateData(data: List<Work>) {
+        listItems = data
+    }
+
     inner class ListViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var itemId: TextView = view.findViewById(R.id.itemId)
         var itemTitle: TextView = view.findViewById(R.id.itemTitle)
