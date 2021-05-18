@@ -19,22 +19,28 @@ open class RecyclerViewAdapter(private var listItems: List<Work>) : RecyclerView
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         val item = listItems[position]
-        holder.itemId.text = item.work_id.toString()
-        holder.itemTitle.text = item.name
-        holder.itemDescription.text = item.description
+        holder.itemId.text = item.work_id.toString() // а если у тебя item.work_id = null ?
+        holder.itemTitle.text = item.name // то же самое
+        holder.itemDescription.text = item.description // -//-
     }
 
     override fun getItemCount(): Int {
         return listItems.size
     }
 
-    fun updateData(data: List<Work>) {
-        listItems = data
-    }
+//    fun updateData(data: List<Work>) {
+//        listItems = data
+//        notifyDataSetChanged()
+//    }
 
     inner class ListViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        // неизменяемые переменные нужно использовать везде где это возможно
         var itemId: TextView = view.findViewById(R.id.itemId)
         var itemTitle: TextView = view.findViewById(R.id.itemTitle)
         var itemDescription: TextView = view.findViewById(R.id.itemDescription)
+
+//        val itemId: TextView = view.findViewById(R.id.itemId)
+//        val itemTitle: TextView = view.findViewById(R.id.itemTitle)
+//        val itemDescription: TextView = view.findViewById(R.id.itemDescription)
     }
 }

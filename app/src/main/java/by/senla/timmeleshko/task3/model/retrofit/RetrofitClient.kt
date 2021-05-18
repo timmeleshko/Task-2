@@ -7,6 +7,7 @@ object RetrofitClient {
 
     private var retrofit: Retrofit? = null
 
+    // добавь вывод в лог url
     fun getClient(baseUrl: String): Retrofit {
         if (retrofit == null) {
             retrofit = Retrofit.Builder()

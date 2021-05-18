@@ -36,6 +36,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     // не совсем удачный вариант инициализации RecyclerView
+    // смысл такой что ты один раз инициализируешь список при создании фрагмента или активити, а данные подгружаешь
+    // по мере их получения, возможно захочешь продолжить подгрузку контента, и тогда у тебя при каждой подгрзке будет
+    // инициализироваться список и создаваться лишний раз объект
     private fun updateList(list: List<Work>) {
         customAdapter = RecyclerViewAdapter(list)
         recyclerView.layoutManager = LinearLayoutManager(this)
