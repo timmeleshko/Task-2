@@ -11,27 +11,28 @@ import by.senla.timmeleshko.task3.model.network.DataLoader
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var customAdapter: RecyclerViewAdapter
     private lateinit var recyclerView: RecyclerView
+    private val adapter = RecyclerViewAdapter(listOf())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         recyclerView = findViewById(R.id.worksList)
+        initListView()
+
         val dataLoader = object: DataLoader() {
-            override fun onDataLoaded(result: ArrayList<Work>) {
-                updateList(result)
+            override fun onDataLoaded(result: List<Work>) {
+                adapter.updateData(result)
             }
         }
-        updateList(listOf())
         dataLoader.loadDataToList()
     }
 
-    private fun updateList(list: List<Work>) {
-        customAdapter = RecyclerViewAdapter(list)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = customAdapter
-        customAdapter.notifyDataSetChanged()
+    private fun initListView() {
+        recyclerView.apply {
+            layoutManager = LinearLayoutManager(this@MainActivity)
+            adapter = this@MainActivity.adapter
+        }
     }
 }
