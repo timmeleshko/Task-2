@@ -14,6 +14,7 @@ class MainActivity : AppCompatActivity(), DataListContract.View {
 
     private lateinit var recyclerView: RecyclerView
     private val adapter = RecyclerViewAdapter(listOf())
+    private lateinit var dataListPresenter: DataListPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,7 +23,8 @@ class MainActivity : AppCompatActivity(), DataListContract.View {
         recyclerView = findViewById(R.id.worksList)
         initListView()
 
-        DataListPresenter(this).requestDataFromServer()
+        dataListPresenter = DataListPresenter(this)
+        dataListPresenter.requestDataFromServer()
     }
 
     private fun initListView() {
@@ -38,5 +40,10 @@ class MainActivity : AppCompatActivity(), DataListContract.View {
 
     override fun onResponseFailure(throwable: Throwable?) {
         throwable?.printStackTrace()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        dataListPresenter.onDestroy()
     }
 }
