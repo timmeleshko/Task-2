@@ -1,15 +1,16 @@
-package by.senla.timmeleshko.task3.view
+package by.senla.timmeleshko.task4.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import by.senla.timmeleshko.task3.R
-import by.senla.timmeleshko.task3.adapters.RecyclerViewAdapter
-import by.senla.timmeleshko.task3.model.beans.Work
-import by.senla.timmeleshko.task3.model.network.DataLoader
+import by.senla.timmeleshko.task4.R
+import by.senla.timmeleshko.task4.adapters.RecyclerViewAdapter
+import by.senla.timmeleshko.task4.model.beans.DataWrapper
+import by.senla.timmeleshko.task4.model.interfaces.DataListContract
+import by.senla.timmeleshko.task4.model.network.DataListPresenter
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), DataListContract.View {
 
     private lateinit var recyclerView: RecyclerView
     private val adapter = RecyclerViewAdapter(listOf())
@@ -21,12 +22,7 @@ class MainActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.worksList)
         initListView()
 
-        val dataLoader = object: DataLoader() {
-            override fun onDataLoaded(result: List<Work>) {
-                adapter.updateData(result)
-            }
-        }
-        dataLoader.loadDataToList()
+        DataListPresenter(this).requestDataFromServer()
     }
 
     private fun initListView() {
@@ -34,5 +30,13 @@ class MainActivity : AppCompatActivity() {
             layoutManager = LinearLayoutManager(this@MainActivity)
             adapter = this@MainActivity.adapter
         }
+    }
+
+    override fun setDataToRecyclerView(dataWrapper: DataWrapper) {
+        dataWrapper.data?.works?.let { adapter.updateData(it) }
+    }
+
+    override fun onResponseFailure(throwable: Throwable?) {
+        throwable?.printStackTrace()
     }
 }

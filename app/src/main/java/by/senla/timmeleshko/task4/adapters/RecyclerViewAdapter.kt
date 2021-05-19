@@ -1,4 +1,4 @@
-package by.senla.timmeleshko.task3.adapters
+package by.senla.timmeleshko.task4.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,11 +6,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.annotation.NonNull
 import androidx.recyclerview.widget.RecyclerView
-import by.senla.timmeleshko.task3.R
-import by.senla.timmeleshko.task3.model.Constants.DEFAULT_DESCRIPTION
-import by.senla.timmeleshko.task3.model.Constants.DEFAULT_ID
-import by.senla.timmeleshko.task3.model.Constants.DEFAULT_TEXT
-import by.senla.timmeleshko.task3.model.beans.Work
+import by.senla.timmeleshko.task4.R
+import by.senla.timmeleshko.task4.model.Constants.DEFAULT_DESCRIPTION
+import by.senla.timmeleshko.task4.model.Constants.DEFAULT_ID
+import by.senla.timmeleshko.task4.model.Constants.DEFAULT_TEXT
+import by.senla.timmeleshko.task4.model.beans.Work
 
 open class RecyclerViewAdapter(private var listItems: List<Work>) : RecyclerView.Adapter<RecyclerViewAdapter.ListViewHolder>() {
 
