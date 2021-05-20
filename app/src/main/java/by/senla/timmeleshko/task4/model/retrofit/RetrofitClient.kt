@@ -12,7 +12,7 @@ object RetrofitClient {
 
     private const val BASE_URL = "https://api.arthive.com/v2.0/"
     val retrofitService: RetrofitServices
-    get() = getClient().create(RetrofitServices::class.java)
+        get() = getClient().create(RetrofitServices::class.java)
 
     private fun getClient(): Retrofit {
         Log.i(URL, BASE_URL)

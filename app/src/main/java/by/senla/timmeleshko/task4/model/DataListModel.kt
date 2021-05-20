@@ -3,15 +3,18 @@ package by.senla.timmeleshko.task4.model
 import by.senla.timmeleshko.task4.model.beans.DataWrapper
 import by.senla.timmeleshko.task4.model.interfaces.DataListContract
 import by.senla.timmeleshko.task4.model.interfaces.DataListContract.Model.OnFinishedListener
+import by.senla.timmeleshko.task4.model.interfaces.RetrofitServices
 import by.senla.timmeleshko.task4.model.retrofit.RetrofitClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class DataListModel : DataListContract.Model {
+class DataListModel(
+    private val retrofitServices: RetrofitServices = RetrofitClient.retrofitService
+) : DataListContract.Model {
 
     override fun getDataList(onFinishedListener: OnFinishedListener?) {
-        RetrofitClient.retrofitService.getWorksList().enqueue(object : Callback<DataWrapper?> {
+        retrofitServices.getWorksList().enqueue(object : Callback<DataWrapper?> {
             override fun onResponse(call: Call<DataWrapper?>?, response: Response<DataWrapper?>) {
                 val data: DataWrapper? = response.body()
                 onFinishedListener?.onFinished(data)

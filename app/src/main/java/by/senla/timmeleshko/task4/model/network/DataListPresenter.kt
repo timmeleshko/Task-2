@@ -5,14 +5,9 @@ import by.senla.timmeleshko.task4.model.beans.DataWrapper
 import by.senla.timmeleshko.task4.model.interfaces.DataListContract
 
 class DataListPresenter(
-        private var dataListView: DataListContract.View?
+        private var dataListView: DataListContract.View?,
+        private val dataListModel: DataListContract.Model? = DataListModel()
     ) : DataListContract.Presenter, DataListContract.Model.OnFinishedListener {
-
-    private var dataListModel: DataListContract.Model? = null
-
-    init {
-        dataListModel = DataListModel()
-    }
 
     override fun onDestroy() {
         dataListView = null
