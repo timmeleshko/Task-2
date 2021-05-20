@@ -5,24 +5,31 @@ import by.senla.timmeleshko.task5.model.interfaces.DataListContract
 import by.senla.timmeleshko.task5.model.interfaces.DataListContract.Model.OnFinishedListener
 import by.senla.timmeleshko.task5.model.interfaces.RetrofitServices
 import by.senla.timmeleshko.task5.model.retrofit.RetrofitClient
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import io.reactivex.Observer
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 
 class DataListModel(
     private val retrofitServices: RetrofitServices = RetrofitClient.retrofitService
 ) : DataListContract.Model {
 
     override fun getDataList(onFinishedListener: OnFinishedListener?) {
-        retrofitServices.getWorksList().enqueue(object : Callback<DataWrapper?> {
-            override fun onResponse(call: Call<DataWrapper?>?, response: Response<DataWrapper?>) {
-                val data: DataWrapper? = response.body()
-                onFinishedListener?.onFinished(data)
-            }
+        retrofitServices.getWorksList()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : Observer<DataWrapper?> {
 
-            override fun onFailure(call: Call<DataWrapper?>?, t: Throwable) {
-                onFinishedListener?.onFailure(t)
-            }
-        })
+                override fun onSubscribe(d: Disposable) {}
+                override fun onComplete() {}
+
+                override fun onError(e: Throwable) {
+                    onFinishedListener?.onFailure(e)
+                }
+
+                override fun onNext(t: DataWrapper) {
+                    onFinishedListener?.onFinished(t)
+                }
+            })
     }
 }
