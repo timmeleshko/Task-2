@@ -1,8 +1,8 @@
-package by.senla.timmeleshko.task4.model.network
+package by.senla.timmeleshko.task5.model.network
 
-import by.senla.timmeleshko.task4.model.DataListModel
-import by.senla.timmeleshko.task4.model.beans.DataWrapper
-import by.senla.timmeleshko.task4.model.interfaces.DataListContract
+import by.senla.timmeleshko.task5.model.DataListModel
+import by.senla.timmeleshko.task5.model.beans.DataWrapper
+import by.senla.timmeleshko.task5.model.interfaces.DataListContract
 
 class DataListPresenter(
         private var dataListView: DataListContract.View?,

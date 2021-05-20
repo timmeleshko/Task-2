@@ -1,10 +1,10 @@
-package by.senla.timmeleshko.task4.model
+package by.senla.timmeleshko.task5.model
 
-import by.senla.timmeleshko.task4.model.beans.DataWrapper
-import by.senla.timmeleshko.task4.model.interfaces.DataListContract
-import by.senla.timmeleshko.task4.model.interfaces.DataListContract.Model.OnFinishedListener
-import by.senla.timmeleshko.task4.model.interfaces.RetrofitServices
-import by.senla.timmeleshko.task4.model.retrofit.RetrofitClient
+import by.senla.timmeleshko.task5.model.beans.DataWrapper
+import by.senla.timmeleshko.task5.model.interfaces.DataListContract
+import by.senla.timmeleshko.task5.model.interfaces.DataListContract.Model.OnFinishedListener
+import by.senla.timmeleshko.task5.model.interfaces.RetrofitServices
+import by.senla.timmeleshko.task5.model.retrofit.RetrofitClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

@@ -1,6 +1,6 @@
-package by.senla.timmeleshko.task4.model.interfaces
+package by.senla.timmeleshko.task5.model.interfaces
 
-import by.senla.timmeleshko.task4.model.beans.DataWrapper
+import by.senla.timmeleshko.task5.model.beans.DataWrapper
 import retrofit2.Call
 import retrofit2.http.GET
 

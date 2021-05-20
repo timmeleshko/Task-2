@@ -1,14 +1,14 @@
-package by.senla.timmeleshko.task4.view
+package by.senla.timmeleshko.task5.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import by.senla.timmeleshko.task4.R
-import by.senla.timmeleshko.task4.adapters.RecyclerViewAdapter
-import by.senla.timmeleshko.task4.model.beans.DataWrapper
-import by.senla.timmeleshko.task4.model.interfaces.DataListContract
-import by.senla.timmeleshko.task4.model.network.DataListPresenter
+import by.senla.timmeleshko.task5.R
+import by.senla.timmeleshko.task5.adapters.RecyclerViewAdapter
+import by.senla.timmeleshko.task5.model.beans.DataWrapper
+import by.senla.timmeleshko.task5.model.interfaces.DataListContract
+import by.senla.timmeleshko.task5.model.network.DataListPresenter
 
 class MainActivity : AppCompatActivity(), DataListContract.View {
 

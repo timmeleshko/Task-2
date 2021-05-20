@@ -1,8 +1,8 @@
-package by.senla.timmeleshko.task4.model.retrofit
+package by.senla.timmeleshko.task5.model.retrofit
 
 import android.util.Log
-import by.senla.timmeleshko.task4.model.Constants.URL
-import by.senla.timmeleshko.task4.model.interfaces.RetrofitServices
+import by.senla.timmeleshko.task5.model.Constants.URL
+import by.senla.timmeleshko.task5.model.interfaces.RetrofitServices
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 

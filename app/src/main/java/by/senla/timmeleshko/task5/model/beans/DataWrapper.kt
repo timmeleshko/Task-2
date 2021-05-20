@@ -1,4 +1,4 @@
-package by.senla.timmeleshko.task4.model.beans
+package by.senla.timmeleshko.task5.model.beans
 
 import java.io.Serializable
 
