@@ -1,8 +1,9 @@
-package by.senla.timmeleshko.task5.model
+package by.senla.timmeleshko.task5.model.network
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import by.senla.timmeleshko.task5.model.beans.DataWrapper
-import by.senla.timmeleshko.task5.model.interfaces.DataListContract
-import by.senla.timmeleshko.task5.model.interfaces.DataListContract.Model.OnFinishedListener
 import by.senla.timmeleshko.task5.model.interfaces.RetrofitServices
 import by.senla.timmeleshko.task5.model.retrofit.RetrofitClient
 import io.reactivex.Observer
@@ -10,11 +11,21 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 
-class DataListModel(
+class DataViewModel(
     private val retrofitServices: RetrofitServices = RetrofitClient.retrofitService
-) : DataListContract.Model {
+) : ViewModel() {
 
-    override fun getDataList(onFinishedListener: OnFinishedListener?) {
+    private val dataWrapper: MutableLiveData<DataWrapper> by lazy {
+        MutableLiveData<DataWrapper>().also {
+            loadData()
+        }
+    }
+
+    fun getDataWrapper(): LiveData<DataWrapper> {
+        return dataWrapper
+    }
+
+    private fun loadData() {
         retrofitServices.getWorksList()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -24,11 +35,11 @@ class DataListModel(
                 override fun onComplete() {}
 
                 override fun onError(e: Throwable) {
-                    onFinishedListener?.onFailure(e)
+                    e.printStackTrace()
                 }
 
                 override fun onNext(t: DataWrapper) {
-                    onFinishedListener?.onFinished(t)
+                    dataWrapper.value = t
                 }
             })
     }
