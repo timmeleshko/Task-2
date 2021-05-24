@@ -1,6 +1,6 @@
-package by.senla.timmeleshko.task5.model.interfaces
+package by.senla.timmeleshko.task6.model.interfaces
 
-import by.senla.timmeleshko.task5.model.beans.DataWrapper
+import by.senla.timmeleshko.task6.model.beans.DataWrapper
 import io.reactivex.Observable
 import retrofit2.http.GET
 

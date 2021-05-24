@@ -1,4 +1,4 @@
-package by.senla.timmeleshko.task5
+package by.senla.timmeleshko.task6
 
 import org.junit.Test
 

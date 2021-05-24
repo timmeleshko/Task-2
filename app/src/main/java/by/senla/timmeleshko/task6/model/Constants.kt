@@ -1,4 +1,4 @@
-package by.senla.timmeleshko.task5.model
+package by.senla.timmeleshko.task6.model
 
 object Constants {
     const val DEFAULT_ID = "NO ID"

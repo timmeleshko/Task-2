@@ -1,11 +1,11 @@
-package by.senla.timmeleshko.task5.model.network
+package by.senla.timmeleshko.task6.model.network
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import by.senla.timmeleshko.task5.model.beans.DataWrapper
-import by.senla.timmeleshko.task5.model.interfaces.RetrofitServices
-import by.senla.timmeleshko.task5.model.retrofit.RetrofitClient
+import by.senla.timmeleshko.task6.model.beans.DataWrapper
+import by.senla.timmeleshko.task6.model.interfaces.RetrofitServices
+import by.senla.timmeleshko.task6.model.retrofit.RetrofitClient
 import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
