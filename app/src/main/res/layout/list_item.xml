@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="5dp"
     android:background="@drawable/border">
 
     <ImageView
@@ -20,7 +20,7 @@
     <TextView
         android:id="@+id/itemTitle"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
@@ -30,10 +30,12 @@
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/itemImage" />
+        app:layout_constraintTop_toBottomOf="@id/itemImage"
+        tools:text="Title" />
 
     <ImageView
         android:id="@+id/itemLikesImage"
+        android:padding="4dp"
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:layout_marginStart="16dp"
@@ -48,26 +50,28 @@
 
     <TextView
         android:id="@+id/itemLikesAmount"
-        android:layout_width="0dp"
-        android:layout_height="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:gravity="top"
+        android:gravity="center_vertical"
         android:singleLine="true"
         android:textColor="@color/gray"
         android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/itemLikesImage"
         app:layout_constraintStart_toEndOf="@+id/itemLikesImage"
-        app:layout_constraintTop_toBottomOf="@id/itemTitle" />
+        app:layout_constraintTop_toTopOf="@+id/itemLikesImage"
+        tools:text="524" />
 
     <ImageView
         android:id="@+id/itemInfoImage"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginTop="8dp"
+        android:padding="4dp"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginEnd="16dp"
         android:contentDescription="@string/item_info_image"
+        app:layout_constraintBottom_toBottomOf="@+id/itemLikesImage"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/itemTitle"
+        app:layout_constraintTop_toTopOf="@+id/itemLikesImage"
         app:srcCompat="@drawable/ic_outline_info_24"
         app:tint="@color/gray" />
 

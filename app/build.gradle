@@ -49,6 +49,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
 
     implementation 'androidx.gridlayout:gridlayout:1.0.0'
+    implementation 'com.rubensousa:decorator:2.0.0'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
