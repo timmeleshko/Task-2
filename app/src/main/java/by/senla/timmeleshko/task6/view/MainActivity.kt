@@ -1,5 +1,6 @@
 package by.senla.timmeleshko.task6.view
 
+import android.content.res.Resources
 import android.os.Bundle
 import android.util.TypedValue
 import androidx.appcompat.app.AppCompatActivity
@@ -18,6 +19,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
     private val adapter = RecyclerViewAdapter(listOf())
+    private val Int.px: Int
+        get() = (this * Resources.getSystem().displayMetrics.density).toInt()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,8 +41,8 @@ class MainActivity : AppCompatActivity() {
         recyclerView.apply {
             layoutManager = GridLayoutManager(this@MainActivity, GRID_LAYOUT_COLUMNS_COUNT)
             addItemDecoration(GridMarginDecoration(
-                verticalMargin = dpToPx(16f),
-                horizontalMargin = dpToPx(16f),
+                verticalMargin = 16.px,
+                horizontalMargin = 16.px,
                 columnProvider = object : ColumnProvider {
                     override fun getNumberOfColumns(): Int = GRID_LAYOUT_COLUMNS_COUNT
                 },
@@ -48,7 +51,4 @@ class MainActivity : AppCompatActivity() {
             adapter = this@MainActivity.adapter
         }
     }
-
-    private fun dpToPx(dp: Float): Int = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
-        resources.displayMetrics).toInt()
 }
