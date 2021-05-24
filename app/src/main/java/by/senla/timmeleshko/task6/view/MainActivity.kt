@@ -3,10 +3,11 @@ package by.senla.timmeleshko.task6.view
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import by.senla.timmeleshko.task6.R
 import by.senla.timmeleshko.task6.adapters.RecyclerViewAdapter
+import by.senla.timmeleshko.task6.model.Constants.GRID_LAYOUT_COLUMNS_COUNT
 import by.senla.timmeleshko.task6.model.network.DataViewModel
 
 class MainActivity : AppCompatActivity() {
@@ -31,7 +32,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun initListView() {
         recyclerView.apply {
-            layoutManager = LinearLayoutManager(this@MainActivity)
+            layoutManager = GridLayoutManager(this@MainActivity, GRID_LAYOUT_COLUMNS_COUNT)
             adapter = this@MainActivity.adapter
         }
     }

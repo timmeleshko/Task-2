@@ -1,32 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="80dp">
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:background="@drawable/border">
 
-    <TextView
-        android:id="@+id/itemId"
-        android:layout_width="80dp"
-        android:layout_height="match_parent"
-        android:fontFamily="sans-serif-black"
-        android:gravity="center"
-        android:textSize="16sp" />
+    <ImageView
+        android:id="@+id/itemImage"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/item_image"
+        android:scaleType="fitCenter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/itemTitle"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_toEndOf="@id/itemId"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
         android:gravity="center_vertical"
         android:singleLine="true"
-        android:textSize="20sp" />
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/itemImage" />
+
+    <ImageView
+        android:id="@+id/itemLikesImage"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp"
+        android:contentDescription="@string/item_like_image"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/itemTitle"
+        app:srcCompat="@drawable/ic_like"
+        app:tint="@color/gray" />
 
     <TextView
-        android:id="@+id/itemDescription"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_below="@id/itemTitle"
-        android:layout_toEndOf="@id/itemId"
-        android:gravity="center_vertical"
-        android:maxLines="2"
-        android:textSize="16sp" />
-</RelativeLayout>
+        android:id="@+id/itemLikesAmount"
+        android:layout_width="0dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:gravity="top"
+        android:singleLine="true"
+        android:textColor="@color/gray"
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@+id/itemLikesImage"
+        app:layout_constraintTop_toBottomOf="@id/itemTitle" />
+
+    <ImageView
+        android:id="@+id/itemInfoImage"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:contentDescription="@string/item_info_image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/itemTitle"
+        app:srcCompat="@drawable/ic_outline_info_24"
+        app:tint="@color/gray" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
