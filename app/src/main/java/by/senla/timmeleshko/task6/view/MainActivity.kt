@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import by.senla.timmeleshko.task6.R
 import by.senla.timmeleshko.task6.adapters.RecyclerViewAdapter
 import by.senla.timmeleshko.task6.model.Constants.GRID_LAYOUT_COLUMNS_COUNT
+import by.senla.timmeleshko.task6.model.Constants.HORIZONTAL_COLUMN_MARGIN
+import by.senla.timmeleshko.task6.model.Constants.VERTICAL_COLUMN_MARGIN
 import by.senla.timmeleshko.task6.model.network.DataViewModel
 import by.senla.timmeleshko.task6.utils.dpToPx
 import com.rubensousa.decorator.ColumnProvider
@@ -37,8 +39,8 @@ class MainActivity : AppCompatActivity() {
         recyclerView.apply {
             layoutManager = GridLayoutManager(this@MainActivity, GRID_LAYOUT_COLUMNS_COUNT)
             addItemDecoration(GridMarginDecoration(
-                verticalMargin = dpToPx(16),
-                horizontalMargin = dpToPx(16),
+                verticalMargin = dpToPx(VERTICAL_COLUMN_MARGIN),
+                horizontalMargin = dpToPx(HORIZONTAL_COLUMN_MARGIN),
                 columnProvider = object : ColumnProvider {
                     override fun getNumberOfColumns(): Int = GRID_LAYOUT_COLUMNS_COUNT
                 },

@@ -7,4 +7,7 @@ object Constants {
     const val IMAGE_URL = "IMAGE URL"
 
     const val GRID_LAYOUT_COLUMNS_COUNT = 2
+    const val VERTICAL_COLUMN_MARGIN = 16
+    const val HORIZONTAL_COLUMN_MARGIN = 16
+    const val DOWNLOAD_IMAGE_SIZE = 200f
 }

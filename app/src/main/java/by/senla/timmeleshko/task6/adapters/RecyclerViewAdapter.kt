@@ -14,6 +14,7 @@ import by.senla.timmeleshko.task6.R
 import by.senla.timmeleshko.task6.model.Constants
 import by.senla.timmeleshko.task6.model.Constants.DEFAULT_LIKES
 import by.senla.timmeleshko.task6.model.Constants.DEFAULT_TEXT
+import by.senla.timmeleshko.task6.model.Constants.DOWNLOAD_IMAGE_SIZE
 import by.senla.timmeleshko.task6.model.beans.Data
 import by.senla.timmeleshko.task6.model.beans.MediaDto
 import by.senla.timmeleshko.task6.model.beans.WorkDto
@@ -35,9 +36,9 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.ListViewHol
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         val item = listItems[position]
+        val url = data?.media?.let { getUrl(it, item) }
         holder.itemTitle.text = item.name ?: DEFAULT_TEXT
         holder.itemLikesAmount.text = item.counters?.likes ?: DEFAULT_LIKES
-        val url = data?.media?.let { getUrl(it, item) }
         if (url != null) {
             Log.i(Constants.IMAGE_URL, url)
             val colorDrawable = ColorDrawable(Color.parseColor("#${item.colors?.middle}"))
@@ -48,7 +49,7 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.ListViewHol
     private fun getUrl(mediaDto: List<MediaDto>, item: WorkDto): String? {
         for (media in mediaDto) {
             if (media.media_id == item.media_id) {
-                return media.data?.sizes?.orig?.x?.let { buildMediaUrl(it, media, MediaRatio.s, MediaSide.x) }
+                return buildMediaUrl(DOWNLOAD_IMAGE_SIZE, media, MediaRatio.s, MediaSide.x)
             }
         }
         return null
