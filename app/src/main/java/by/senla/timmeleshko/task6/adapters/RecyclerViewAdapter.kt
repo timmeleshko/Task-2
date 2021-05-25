@@ -1,5 +1,8 @@
 package by.senla.timmeleshko.task6.adapters
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +11,7 @@ import android.widget.TextView
 import androidx.annotation.NonNull
 import androidx.recyclerview.widget.RecyclerView
 import by.senla.timmeleshko.task6.R
+import by.senla.timmeleshko.task6.model.Constants
 import by.senla.timmeleshko.task6.model.Constants.DEFAULT_LIKES
 import by.senla.timmeleshko.task6.model.Constants.DEFAULT_TEXT
 import by.senla.timmeleshko.task6.model.beans.Data
@@ -35,7 +39,9 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.ListViewHol
         holder.itemLikesAmount.text = item.counters?.likes ?: DEFAULT_LIKES
         val url = data?.media?.let { getUrl(it, item) }
         if (url != null) {
-            holder.itemImage.submitImage(url, R.color.gray)
+            Log.i(Constants.IMAGE_URL, url)
+            val colorDrawable = ColorDrawable(Color.parseColor("#${item.colors?.middle}"))
+            holder.itemImage.submitImage(url, colorDrawable)
         }
     }
 

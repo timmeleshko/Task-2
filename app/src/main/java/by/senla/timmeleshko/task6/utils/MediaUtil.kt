@@ -36,5 +36,5 @@ private fun getCorrectSizeImage(sizeImage: Float): Int {
             return sizes[i]
         }
     }
-    return sizes.size - 1
+    return sizes[sizes.size - 1]
 }
