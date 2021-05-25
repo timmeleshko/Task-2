@@ -1,5 +1,6 @@
-package com.company.art.utils
+package by.senla.timmeleshko.task6.utils
 
+import android.content.res.Resources
 import by.senla.timmeleshko.task6.model.beans.MediaDto
 
 val sizes =
@@ -17,6 +18,10 @@ enum class MediaSide {
     y  // по высоте
 }
 
+fun dpToPx(dp: Int): Int {
+    return (dp * Resources.getSystem().displayMetrics.density).toInt()
+}
+
 fun buildMediaUrl(size: Float, media: MediaDto, ratio: MediaRatio, side: MediaSide): String {
     return media.let {
         val sizeImage = getCorrectSizeImage(size)
@@ -26,7 +31,7 @@ fun buildMediaUrl(size: Float, media: MediaDto, ratio: MediaRatio, side: MediaSi
 }
 
 private fun getCorrectSizeImage(sizeImage: Float): Int {
-    for (i in 0..sizes.size - 1) {
+    for (i in sizes.indices) {
         if (i < sizes.size - 1 && sizeImage >= sizes[i] && sizeImage <= sizes[i + 1]) {
             return sizes[i]
         }

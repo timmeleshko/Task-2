@@ -10,9 +10,18 @@ import androidx.recyclerview.widget.RecyclerView
 import by.senla.timmeleshko.task6.R
 import by.senla.timmeleshko.task6.model.Constants.DEFAULT_LIKES
 import by.senla.timmeleshko.task6.model.Constants.DEFAULT_TEXT
-import by.senla.timmeleshko.task6.model.beans.Work
+import by.senla.timmeleshko.task6.model.beans.Data
+import by.senla.timmeleshko.task6.model.beans.MediaDto
+import by.senla.timmeleshko.task6.model.beans.WorkDto
+import by.senla.timmeleshko.task6.utils.MediaRatio
+import by.senla.timmeleshko.task6.utils.MediaSide
+import by.senla.timmeleshko.task6.utils.buildMediaUrl
+import by.senla.timmeleshko.task6.utils.submitImage
 
-open class RecyclerViewAdapter(private var listItems: List<Work>) : RecyclerView.Adapter<RecyclerViewAdapter.ListViewHolder>() {
+class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.ListViewHolder>() {
+
+    private var listItems: List<WorkDto> = listOf()
+    private var data: Data? = null
 
     @NonNull
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
@@ -23,15 +32,29 @@ open class RecyclerViewAdapter(private var listItems: List<Work>) : RecyclerView
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         val item = listItems[position]
         holder.itemTitle.text = item.name ?: DEFAULT_TEXT
-        holder.itemLikesAmount.text = item.counters?.likes?.toString() ?: DEFAULT_LIKES
+        holder.itemLikesAmount.text = item.counters?.likes ?: DEFAULT_LIKES
+        val url = data?.media?.let { getUrl(it, item) }
+        if (url != null) {
+            holder.itemImage.submitImage(url, R.color.gray)
+        }
+    }
+
+    private fun getUrl(mediaDto: List<MediaDto>, item: WorkDto): String? {
+        for (media in mediaDto) {
+            if (media.media_id == item.media_id) {
+                return media.data?.sizes?.orig?.x?.let { buildMediaUrl(it, media, MediaRatio.s, MediaSide.x) }
+            }
+        }
+        return null
     }
 
     override fun getItemCount(): Int {
         return listItems.size
     }
 
-    fun updateData(data: List<Work>) {
-        listItems = data
+    fun updateData(data: Data) {
+        this.data = data
+        listItems = data.works!!
         notifyDataSetChanged()
     }
 
@@ -39,6 +62,5 @@ open class RecyclerViewAdapter(private var listItems: List<Work>) : RecyclerView
         val itemImage: ImageView = view.findViewById(R.id.itemImage)
         val itemTitle: TextView = view.findViewById(R.id.itemTitle)
         val itemLikesAmount: TextView = view.findViewById(R.id.itemLikesAmount)
-        val itemInfoImage: ImageView = view.findViewById(R.id.itemInfoImage)
     }
 }

@@ -1,13 +1,11 @@
-package com.company.art.utils
+package by.senla.timmeleshko.task6.utils
 
-import android.graphics.drawable.Drawable
-import android.util.Log
 import android.widget.ImageView
 import com.squareup.picasso.Picasso
 
-fun ImageView.submitImage(url: String, placeholder: Drawable) {
+fun ImageView.submitImage(url: String, placeholder: Int) {
     Picasso.get()
         .load(url)
         .placeholder(placeholder)
-        .into(this);
+        .into(this)
 }

@@ -17,8 +17,8 @@ data class MediaDto(
         val version_big: String?,
         val version_orig: String?,
         val sizes: Size?,
-        val x: String?,
-        val y: String?,
+        val x: Float?,
+        val y: Float?,
         val ratio: String?,
         val ext: String?,
         val is_animated: String?
@@ -29,8 +29,8 @@ data class MediaDto(
     )
 
     data class SizeOrig(
-            val x: String?,
-            val y: String?,
+            val x: Float?,
+            val y: Float?,
             val hash_file_name: String?
     )
 }
