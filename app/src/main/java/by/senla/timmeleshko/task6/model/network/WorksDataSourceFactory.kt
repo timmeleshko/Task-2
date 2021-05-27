@@ -14,8 +14,8 @@ class WorksDataSourceFactory(
 ) : DataSource.Factory<Int, WorkDto>() {
 
     override fun create(): DataSource<Int, WorkDto> {
-        val newsDataSource = WorksDataSource(retrofitService, compositeDisposable)
-        worksDataSourceLiveData.postValue(newsDataSource)
-        return newsDataSource
+        val worksDataSource = WorksDataSource(retrofitService, compositeDisposable)
+        worksDataSourceLiveData.postValue(worksDataSource)
+        return worksDataSource
     }
 }

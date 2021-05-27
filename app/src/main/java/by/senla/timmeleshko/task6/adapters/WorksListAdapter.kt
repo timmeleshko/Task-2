@@ -9,7 +9,7 @@ import by.senla.timmeleshko.task6.model.Constants.FOOTER_VIEW_TYPE
 import by.senla.timmeleshko.task6.model.beans.WorkDto
 import by.senla.timmeleshko.task6.model.enums.State
 
-class WorksListAdapter(private val retry: () -> Unit) : PagedListAdapter<WorkDto, RecyclerView.ViewHolder>(NewsDiffCallback) {
+class WorksListAdapter(private val retry: () -> Unit) : PagedListAdapter<WorkDto, RecyclerView.ViewHolder>(WorksDiffCallback) {
 
     private var state = State.LOADING
 
@@ -34,7 +34,7 @@ class WorksListAdapter(private val retry: () -> Unit) : PagedListAdapter<WorkDto
     }
 
     companion object {
-        val NewsDiffCallback = object : DiffUtil.ItemCallback<WorkDto>() {
+        val WorksDiffCallback = object : DiffUtil.ItemCallback<WorkDto>() {
             override fun areItemsTheSame(oldItem: WorkDto, newItem: WorkDto): Boolean {
                 return oldItem.work_id == newItem.work_id
             }
