@@ -1,6 +1,7 @@
 package by.senla.timmeleshko.task6.model.beans
 
 data class WorkDto(
+    var media_dto: MediaDto?,
     val work_id: String?,
     val user_id: String?,
     val uri_owner: String?,

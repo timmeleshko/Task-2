@@ -10,4 +10,8 @@ object Constants {
     const val VERTICAL_COLUMN_MARGIN = 16
     const val HORIZONTAL_COLUMN_MARGIN = 16
     const val DOWNLOAD_IMAGE_SIZE = 200f
+    const val DEFAULT_PLACEHOLDER_COLOR = "cccccc"
+    const val RECYCLER_VIEW_PAGE_SIZE = 10
+    const val DATA_VIEW_TYPE = 1
+    const val FOOTER_VIEW_TYPE = 2
 }
