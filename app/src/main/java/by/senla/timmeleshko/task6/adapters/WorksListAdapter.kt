@@ -4,12 +4,17 @@ import android.view.ViewGroup
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import by.senla.timmeleshko.task6.model.Constants.DATA_VIEW_TYPE
-import by.senla.timmeleshko.task6.model.Constants.FOOTER_VIEW_TYPE
+import by.senla.timmeleshko.task6.adapters.WorksListAdapter.WorksListAdapterConstants.DATA_VIEW_TYPE
+import by.senla.timmeleshko.task6.adapters.WorksListAdapter.WorksListAdapterConstants.FOOTER_VIEW_TYPE
 import by.senla.timmeleshko.task6.model.beans.WorkDto
 import by.senla.timmeleshko.task6.model.enums.State
 
 class WorksListAdapter(private val retry: () -> Unit) : PagedListAdapter<WorkDto, RecyclerView.ViewHolder>(WorksDiffCallback) {
+
+    object WorksListAdapterConstants {
+        const val DATA_VIEW_TYPE = 1
+        const val FOOTER_VIEW_TYPE = 2
+    }
 
     private var state = State.LOADING
 
@@ -25,7 +30,7 @@ class WorksListAdapter(private val retry: () -> Unit) : PagedListAdapter<WorkDto
         if (getItemViewType(position) == DATA_VIEW_TYPE) {
             (holder as WorksViewHolder).bind(getItem(position))
         } else {
-            (holder as FooterViewHolder).bind(state)
+            (holder as FooterViewHolder)
         }
     }
 

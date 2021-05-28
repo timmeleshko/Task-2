@@ -10,11 +10,6 @@ import by.senla.timmeleshko.task6.model.enums.State
 
 class FooterViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-    fun bind(status: State?) {
-        itemView.findViewById<ProgressBar>(R.id.progressBarFooter).visibility =
-            if (status == State.LOADING) View.VISIBLE else View.INVISIBLE
-    }
-
     companion object {
         fun create(retry: () -> Unit, parent: ViewGroup): FooterViewHolder {
             val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_footer, parent, false)

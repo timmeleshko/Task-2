@@ -5,10 +5,10 @@ import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
-import by.senla.timmeleshko.task6.model.Constants.RECYCLER_VIEW_PAGE_SIZE
 import by.senla.timmeleshko.task6.model.beans.WorkDto
 import by.senla.timmeleshko.task6.model.enums.State
 import by.senla.timmeleshko.task6.model.interfaces.RetrofitService
+import by.senla.timmeleshko.task6.model.network.WorksListViewModel.WorksListViewModelConstants.RECYCLER_VIEW_PAGE_SIZE
 import by.senla.timmeleshko.task6.model.retrofit.RetrofitClient
 import io.reactivex.disposables.CompositeDisposable
 
@@ -24,7 +24,11 @@ class WorksListViewModel(
     var worksList: LiveData<PagedList<WorkDto>> = LivePagedListBuilder(worksDataSourceFactory, config).build()
 ) : ViewModel() {
 
-    fun getState(): LiveData<State> = Transformations.switchMap(
+    object WorksListViewModelConstants {
+        const val RECYCLER_VIEW_PAGE_SIZE = 10
+    }
+
+    fun getState(): LiveData<State> =Transformations.switchMap(
         worksDataSourceFactory.worksDataSourceLiveData, WorksDataSource::state)
 
     fun retry() {

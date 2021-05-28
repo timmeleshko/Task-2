@@ -2,11 +2,11 @@ package by.senla.timmeleshko.task6.model.network
 
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PageKeyedDataSource
-import by.senla.timmeleshko.task6.model.Constants.RECYCLER_VIEW_PAGE_SIZE
 import by.senla.timmeleshko.task6.model.beans.MediaDto
 import by.senla.timmeleshko.task6.model.beans.WorkDto
 import by.senla.timmeleshko.task6.model.enums.State
 import by.senla.timmeleshko.task6.model.interfaces.RetrofitService
+import by.senla.timmeleshko.task6.model.network.WorksListViewModel.WorksListViewModelConstants.RECYCLER_VIEW_PAGE_SIZE
 import by.senla.timmeleshko.task6.model.retrofit.RetrofitClient
 import io.reactivex.Completable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -22,12 +22,9 @@ class WorksDataSource(
 ) : PageKeyedDataSource<Int, WorkDto>() {
 
     private fun checkMediaId(worksList: List<WorkDto>, mediaList: List<MediaDto>) : List<WorkDto> {
-        for (w in worksList) {
-            for (m in mediaList) {
-                if (m.media_id == w.media_id) {
-                    w.media_dto = m
-                }
-            }
+        mediaList.forEach { a -> worksList.stream()
+            .filter { b -> b.media_id == a.media_id }
+            .forEach { c -> c.media_dto = a }
         }
         return worksList
     }
