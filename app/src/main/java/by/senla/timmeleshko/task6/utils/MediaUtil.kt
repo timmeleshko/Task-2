@@ -1,7 +1,7 @@
 package by.senla.timmeleshko.task6.utils
 
 import android.content.res.Resources
-import by.senla.timmeleshko.task6.model.beans.MediaDto
+import by.senla.timmeleshko.task6.model.data.dto.MediaDto
 
 val sizes =
     arrayOf(0, 10, 20, 40, 80, 100, 200, 400, 800, 1000, 1200, 1400, 1800, 2000, 2200, 2400, 2800)

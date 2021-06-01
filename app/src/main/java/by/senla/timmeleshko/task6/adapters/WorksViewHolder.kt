@@ -13,7 +13,7 @@ import by.senla.timmeleshko.task6.adapters.WorksViewHolder.WorksViewHolderConsta
 import by.senla.timmeleshko.task6.adapters.WorksViewHolder.WorksViewHolderConstants.DEFAULT_PLACEHOLDER_COLOR
 import by.senla.timmeleshko.task6.adapters.WorksViewHolder.WorksViewHolderConstants.DEFAULT_TEXT
 import by.senla.timmeleshko.task6.adapters.WorksViewHolder.WorksViewHolderConstants.DOWNLOAD_IMAGE_SIZE
-import by.senla.timmeleshko.task6.model.beans.WorkDto
+import by.senla.timmeleshko.task6.model.data.dto.WorkDto
 import by.senla.timmeleshko.task6.utils.MediaRatio
 import by.senla.timmeleshko.task6.utils.MediaSide
 import by.senla.timmeleshko.task6.utils.buildMediaUrl

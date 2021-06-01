@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import by.senla.timmeleshko.task6.adapters.WorksListAdapter.WorksListAdapterConstants.DATA_VIEW_TYPE
 import by.senla.timmeleshko.task6.adapters.WorksListAdapter.WorksListAdapterConstants.FOOTER_VIEW_TYPE
-import by.senla.timmeleshko.task6.model.beans.WorkDto
+import by.senla.timmeleshko.task6.model.data.dto.WorkDto
 import by.senla.timmeleshko.task6.model.enums.State
 
 class WorksListAdapter(private val retry: () -> Unit) : PagedListAdapter<WorkDto, RecyclerView.ViewHolder>(WorksDiffCallback) {

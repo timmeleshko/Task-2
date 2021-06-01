@@ -1,9 +1,8 @@
 package by.senla.timmeleshko.task6.model.interfaces
 
-import by.senla.timmeleshko.task6.model.beans.DataWrapper
+import by.senla.timmeleshko.task6.model.data.dto.DataWrapperDto
 import io.reactivex.Observable
 import retrofit2.http.GET
-import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface RetrofitService {
@@ -11,5 +10,7 @@ interface RetrofitService {
     fun getData(
         @Query("offset") offset: Int = 0,
         @Query("count") count: Int = 25
-    ): Observable<DataWrapper>
+    ): Observable<ListingResponse>
+
+    class ListingResponse(val data: DataWrapperDto)
 }

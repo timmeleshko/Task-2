@@ -1,4 +1,4 @@
-package by.senla.timmeleshko.task6.model.beans
+package by.senla.timmeleshko.task6.model.data.dto
 
 data class TagDto(
         val tag_id: String?,

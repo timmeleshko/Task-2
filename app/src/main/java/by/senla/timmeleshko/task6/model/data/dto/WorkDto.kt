@@ -1,8 +1,18 @@
-package by.senla.timmeleshko.task6.model.beans
+package by.senla.timmeleshko.task6.model.data.dto
 
+import androidx.room.*
+import by.senla.timmeleshko.task6.utils.Converters
+
+@Entity(tableName = "works", indices = [Index(value = ["id"], unique = false)])
+@TypeConverters(
+    Converters::class
+)
 data class WorkDto(
-    var media_dto: MediaDto?,
+    @PrimaryKey
+    @ColumnInfo(name = "id")
+    val id: Int,
     val work_id: String?,
+    var media_dto: MediaDto?,
     val user_id: String?,
     val uri_owner: String?,
     val media_id: String?,
@@ -37,6 +47,8 @@ data class WorkDto(
     val description_html: String?,
     val _extended: String?
 ) {
+
+    var indexInResponse: Int = -1
 
     data class Counters(
             val selections: String?,
