@@ -2,6 +2,7 @@ package by.senla.timmeleshko.task6.model.interfaces
 
 import android.util.Log
 import by.senla.timmeleshko.task6.model.Constants
+import by.senla.timmeleshko.task6.model.beans.MediaDto
 import by.senla.timmeleshko.task6.model.beans.WorkDto
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -14,7 +15,7 @@ import retrofit2.http.Query
 interface DataApi {
     @GET("works.search?extends=works.alt_media_ids,works.media_id,works.counters,works.properties,works.collection_id,works.infos,works.description,filters.uri,works.aset_ids,works.artist_ids&count=30&artist_id=739&order=default&")
     suspend fun getData(
-        @Query("offset") offset: String? = "0",
+        @Query("offset") offset: String? = null,
         @Query("count") count: Int = 25
     ): ListingResponse
 
@@ -22,8 +23,7 @@ interface DataApi {
 
     class ListingData(
         val works: List<WorkDto>,
-        val offset: String?,
-        val count: Int
+        val media: List<MediaDto>
     )
 
     data class WorksResponse(val workDto: WorkDto)

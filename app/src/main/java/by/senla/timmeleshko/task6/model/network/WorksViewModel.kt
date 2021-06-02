@@ -6,8 +6,7 @@ import androidx.lifecycle.asFlow
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import by.senla.timmeleshko.task6.model.beans.WorkDto
-import by.senla.timmeleshko.task6.model.repository.WorkRepository
+import by.senla.timmeleshko.task6.model.interfaces.WorkRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.channels.Channel

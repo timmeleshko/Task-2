@@ -1,4 +1,4 @@
-package by.senla.timmeleshko.task6.model.repository.db
+package by.senla.timmeleshko.task6.model.repository
 
 import android.util.Log
 import androidx.paging.ExperimentalPagingApi
@@ -8,6 +8,7 @@ import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
 import by.senla.timmeleshko.task6.model.Constants
+import by.senla.timmeleshko.task6.model.beans.MediaDto
 import by.senla.timmeleshko.task6.model.beans.WorkDto
 import by.senla.timmeleshko.task6.model.beans.WorkIdRemoteKey
 import by.senla.timmeleshko.task6.model.db.DataDb
@@ -23,11 +24,20 @@ class PageKeyedRemoteMediator(
     private val dataApi: DataApi,
     private val workId: String
 ) : RemoteMediator<Int, WorkDto>() {
+
     private val workDao: WorkDao = dataDb.works()
     private val remoteKeyDao: WorkIdRemoteKeyDao = dataDb.remoteKeys()
 
     override suspend fun initialize(): InitializeAction {
         return InitializeAction.LAUNCH_INITIAL_REFRESH
+    }
+
+    private fun checkMediaId(worksList: List<WorkDto>, mediaList: List<MediaDto>) : List<WorkDto> {
+        mediaList.forEach { a -> worksList.stream()
+            .filter { b -> b.media_id == a.media_id }
+            .forEach { c -> c.media_dto = a }
+        }
+        return worksList
     }
 
     override suspend fun load(
@@ -56,14 +66,16 @@ class PageKeyedRemoteMediator(
                     else -> state.config.pageSize
                 }
             ).data
+
             val items = data.works.map { it }
+            checkMediaId(items, data.media.map { it })
 
             dataDb.withTransaction {
                 if (loadType == REFRESH) {
                     workDao.deleteByWorkId(workId)
                     remoteKeyDao.deleteByWorkId(workId)
                 }
-                remoteKeyDao.insert(WorkIdRemoteKey(workId, data.offset))
+                remoteKeyDao.insert(WorkIdRemoteKey(workId, ))
                 workDao.insertAll(items)
             }
             return MediatorResult.Success(endOfPaginationReached = items.isEmpty())

@@ -5,8 +5,8 @@ import android.content.Context
 import androidx.annotation.VisibleForTesting
 import by.senla.timmeleshko.task6.model.db.DataDb
 import by.senla.timmeleshko.task6.model.interfaces.DataApi
-import by.senla.timmeleshko.task6.model.repository.WorkRepository
-import by.senla.timmeleshko.task6.model.repository.db.DbWorkRepository
+import by.senla.timmeleshko.task6.model.interfaces.WorkRepository
+import by.senla.timmeleshko.task6.model.repository.DbWorkRepository
 
 /**
  * Super simplified service locator implementation to allow us to replace default implementations

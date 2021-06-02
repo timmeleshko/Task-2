@@ -13,7 +13,7 @@ import by.senla.timmeleshko.task6.adapters.WorksLoadStateAdapter
 import by.senla.timmeleshko.task6.model.ServiceLocator
 import by.senla.timmeleshko.task6.model.network.WorksViewModel
 import by.senla.timmeleshko.task6.model.paging.asMergedLoadStates
-import by.senla.timmeleshko.task6.model.repository.WorkRepository
+import by.senla.timmeleshko.task6.model.interfaces.WorkRepository
 import by.senla.timmeleshko.task6.utils.dpToPx
 import by.senla.timmeleshko.task6.view.MainActivity.MainActivityConstants.COLUMNS_COUNT
 import by.senla.timmeleshko.task6.view.MainActivity.MainActivityConstants.COLUMNS_COUNT_EMPTY

@@ -4,6 +4,8 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import by.senla.timmeleshko.task6.model.beans.WorkDto
+import by.senla.timmeleshko.task6.view.MainActivity.MainActivityConstants.DATA_VIEW_TYPE
+import by.senla.timmeleshko.task6.view.MainActivity.MainActivityConstants.FOOTER_VIEW_TYPE
 
 class WorksAdapter : PagingDataAdapter<WorkDto, WorksViewHolder>(POST_COMPARATOR) {
 
@@ -26,6 +28,10 @@ class WorksAdapter : PagingDataAdapter<WorkDto, WorksViewHolder>(POST_COMPARATOR
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WorksViewHolder {
         return WorksViewHolder.create(parent)
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return if (position < super.getItemCount()) DATA_VIEW_TYPE else FOOTER_VIEW_TYPE
     }
 
     companion object {

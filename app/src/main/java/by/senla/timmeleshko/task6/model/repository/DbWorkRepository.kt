@@ -1,11 +1,11 @@
-package by.senla.timmeleshko.task6.model.repository.db
+package by.senla.timmeleshko.task6.model.repository
 
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import by.senla.timmeleshko.task6.model.db.DataDb
 import by.senla.timmeleshko.task6.model.interfaces.DataApi
-import by.senla.timmeleshko.task6.model.repository.WorkRepository
+import by.senla.timmeleshko.task6.model.interfaces.WorkRepository
 
 /**
  * Repository implementation that uses a database backed [androidx.paging.PagingSource] and
