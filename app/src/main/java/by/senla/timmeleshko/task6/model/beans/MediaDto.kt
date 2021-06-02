@@ -1,4 +1,4 @@
-package by.senla.timmeleshko.task6.model.data.dto
+package by.senla.timmeleshko.task6.model.beans
 
 data class MediaDto(
     val media_id: String?,

@@ -1,5 +1,5 @@
 package by.senla.timmeleshko.task6.model
 
-object LogConstants {
+object Constants {
     const val INFO = "INFO"
 }

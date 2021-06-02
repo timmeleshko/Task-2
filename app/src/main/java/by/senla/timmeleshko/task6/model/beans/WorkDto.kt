@@ -1,17 +1,16 @@
-package by.senla.timmeleshko.task6.model.data.dto
+package by.senla.timmeleshko.task6.model.beans
 
 import androidx.room.*
 import by.senla.timmeleshko.task6.utils.Converters
 
-@Entity(tableName = "works", indices = [Index(value = ["id"], unique = false)])
+@Entity(tableName = "works", indices = [Index(value = ["work_id"], unique = false)])
 @TypeConverters(
     Converters::class
 )
 data class WorkDto(
     @PrimaryKey
-    @ColumnInfo(name = "id")
-    val id: Int,
-    val work_id: String?,
+    @ColumnInfo(name = "work_id")
+    val work_id: String,
     var media_dto: MediaDto?,
     val user_id: String?,
     val uri_owner: String?,
@@ -51,25 +50,25 @@ data class WorkDto(
     var indexInResponse: Int = -1
 
     data class Counters(
-            val selections: String?,
-            val comments: String?,
-            val likes: String?,
-            val audioguides: String?
+        val selections: String?,
+        val comments: String?,
+        val likes: String?,
+        val audioguides: String?
     )
 
     data class Flags(
-            val is_liked: String?,
-            val is_can_like: String?,
-            val is_can_comment: String?
+        val is_liked: String?,
+        val is_can_like: String?,
+        val is_can_comment: String?
     )
 
     data class Infos(
-            val owner_name: String?,
-            val collection_name: String?,
-            val exposition_id: String?,
-            val exposition_name: String?,
-            val count_expositions: String?,
-            val aset_id: String?,
-            val aset_name: String?
+        val owner_name: String?,
+        val collection_name: String?,
+        val exposition_id: String?,
+        val exposition_name: String?,
+        val count_expositions: String?,
+        val aset_id: String?,
+        val aset_name: String?
     )
 }

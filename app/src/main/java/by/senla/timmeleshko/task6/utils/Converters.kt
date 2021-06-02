@@ -1,7 +1,7 @@
 package by.senla.timmeleshko.task6.utils
 
 import androidx.room.TypeConverter
-import by.senla.timmeleshko.task6.model.data.dto.*
+import by.senla.timmeleshko.task6.model.beans.*
 import com.google.gson.Gson
 
 class Converters {
@@ -21,7 +21,7 @@ class Converters {
     fun toMediaDto(value: MediaDto?): String = Gson().toJson(value)
 
     @TypeConverter
-    fun fromMediaDto(value: String) = Gson().fromJson(value, MediaDto::class.java)!!
+    fun fromMediaDto(value: String): MediaDto? = Gson().fromJson(value, MediaDto::class.java)
 
     @TypeConverter
     fun toCoordsDto(value: CoordsDto?): String = Gson().toJson(value)

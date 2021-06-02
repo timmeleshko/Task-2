@@ -1,26 +1,23 @@
 package by.senla.timmeleshko.task6.model.interfaces
 
-import androidx.paging.DataSource
-import androidx.room.*
-import by.senla.timmeleshko.task6.model.data.dto.WorkDto
+import androidx.paging.PagingSource
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import by.senla.timmeleshko.task6.model.beans.WorkDto
 
 @Dao
 interface WorkDao {
-    @Insert
-    fun insert(works : List<WorkDto>)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAll(works: List<WorkDto>)
 
-    @Query("SELECT * FROM works WHERE work_id IN (:id)")
-    fun loadAllByIds(id: IntArray): DataSource.Factory<Int, WorkDto>
+    @Query("SELECT * FROM works WHERE work_id = :work_id ORDER BY indexInResponse ASC")
+    fun worksByWorkId(work_id: String): PagingSource<Int, WorkDto>
 
-    @Query("SELECT * FROM works")
-    fun getAll(): DataSource.Factory<Int, WorkDto>
+    @Query("DELETE FROM works WHERE work_id = :work_id")
+    suspend fun deleteByWorkId(work_id: String)
 
-    @Query("DELETE FROM works WHERE id = :id")
-    fun deleteById(id: Int)
-
-    @Delete
-    fun delete(work: WorkDto)
-
-    @Query("SELECT MAX(indexInResponse) + 1 FROM works WHERE id = :id")
-    fun getNextIndex(id: Int) : Int
+    @Query("SELECT MAX(indexInResponse) + 1 FROM works WHERE work_id = :work_id")
+    suspend fun getNextIndexInWorkId(work_id: String): Int
 }
