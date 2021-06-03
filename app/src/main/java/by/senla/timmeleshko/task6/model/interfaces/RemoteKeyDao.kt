@@ -4,16 +4,16 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import by.senla.timmeleshko.task6.model.beans.WorkIdRemoteKey
+import by.senla.timmeleshko.task6.model.beans.RemoteKey
 
 @Dao
-interface WorkIdRemoteKeyDao {
+interface RemoteKeyDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(keys: WorkIdRemoteKey)
+    suspend fun insert(keys: RemoteKey)
 
     @Query("SELECT * FROM remote_keys WHERE work_id = :work_id")
-    suspend fun remoteKeyByWork(work_id: String): WorkIdRemoteKey
+    suspend fun remoteKeyById(work_id: String): RemoteKey
 
     @Query("DELETE FROM remote_keys WHERE work_id = :work_id")
-    suspend fun deleteByWorkId(work_id: String)
+    suspend fun deleteById(work_id: String)
 }

@@ -13,7 +13,7 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface DataApi {
-    @GET("works.search?extends=works.alt_media_ids,works.media_id,works.counters,works.properties,works.collection_id,works.infos,works.description,filters.uri,works.aset_ids,works.artist_ids&count=30&artist_id=739&order=default&")
+    @GET("works.search?extends=works.alt_media_ids,works.media_id,works.counters,works.properties,works.collection_id,works.infos,works.description,filters.uri,works.aset_ids,works.artist_ids&artist_id=739&order=default")
     suspend fun getData(
         @Query("offset") offset: String? = null,
         @Query("count") count: Int = 25
@@ -23,10 +23,8 @@ interface DataApi {
 
     class ListingData(
         val works: List<WorkDto>,
-        val media: List<MediaDto>
+        val media: List<MediaDto>?
     )
-
-    data class WorksResponse(val workDto: WorkDto)
 
     companion object {
         private const val BASE_URL = "https://api.arthive.com/v2.0/"

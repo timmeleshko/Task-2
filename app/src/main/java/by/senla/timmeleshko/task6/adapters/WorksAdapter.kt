@@ -13,17 +13,8 @@ class WorksAdapter : PagingDataAdapter<WorkDto, WorksViewHolder>(POST_COMPARATOR
         holder.bind(getItem(position))
     }
 
-    override fun onBindViewHolder(
-            holder: WorksViewHolder,
-            position: Int,
-            payloads: MutableList<Any>
-    ) {
-        if (payloads.isNotEmpty()) {
-            val item = getItem(position)
-            holder.updateCounters(item)
-        } else {
-            onBindViewHolder(holder, position)
-        }
+    override fun onBindViewHolder(holder: WorksViewHolder, position: Int, payloads: MutableList<Any>) {
+        onBindViewHolder(holder, position)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WorksViewHolder {
@@ -40,7 +31,7 @@ class WorksAdapter : PagingDataAdapter<WorkDto, WorksViewHolder>(POST_COMPARATOR
                     oldItem == newItem
 
             override fun areItemsTheSame(oldItem: WorkDto, newItem: WorkDto): Boolean =
-                    oldItem.name == newItem.name
+                    oldItem.work_id == newItem.work_id
         }
     }
 }

@@ -22,7 +22,7 @@ import by.senla.timmeleshko.task6.view.MainActivity.MainActivityConstants.FOOTER
 import by.senla.timmeleshko.task6.view.MainActivity.MainActivityConstants.HORIZONTAL_COLUMN_MARGIN
 import by.senla.timmeleshko.task6.view.MainActivity.MainActivityConstants.VERTICAL_COLUMN_MARGIN
 import com.rubensousa.decorator.GridSpanMarginDecoration
-import kotlinx.coroutines.InternalCoroutinesApi
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.filter
@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity() {
             ): T {
                 val repo = ServiceLocator.instance(this@MainActivity).getRepository(WorkRepository.Type.DB)
                 @Suppress("UNCHECKED_CAST")
-                return WorksViewModel(repo, handle) as T
+                return WorksViewModel(repo) as T
             }
         }
     }

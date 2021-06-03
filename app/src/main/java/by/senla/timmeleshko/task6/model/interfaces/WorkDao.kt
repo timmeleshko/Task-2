@@ -12,12 +12,9 @@ interface WorkDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(works: List<WorkDto>)
 
-    @Query("SELECT * FROM works WHERE work_id = :work_id ORDER BY indexInResponse ASC")
-    fun worksByWorkId(work_id: String): PagingSource<Int, WorkDto>
+    @Query("SELECT * FROM works")
+    fun works(): PagingSource<Int, WorkDto>
 
     @Query("DELETE FROM works WHERE work_id = :work_id")
-    suspend fun deleteByWorkId(work_id: String)
-
-    @Query("SELECT MAX(indexInResponse) + 1 FROM works WHERE work_id = :work_id")
-    suspend fun getNextIndexInWorkId(work_id: String): Int
+    suspend fun deleteById(work_id: String)
 }

@@ -4,13 +4,13 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import by.senla.timmeleshko.task6.model.beans.RemoteKey
 import by.senla.timmeleshko.task6.model.beans.WorkDto
-import by.senla.timmeleshko.task6.model.beans.WorkIdRemoteKey
+import by.senla.timmeleshko.task6.model.interfaces.RemoteKeyDao
 import by.senla.timmeleshko.task6.model.interfaces.WorkDao
-import by.senla.timmeleshko.task6.model.interfaces.WorkIdRemoteKeyDao
 
 @Database(
-    entities = [WorkDto::class, WorkIdRemoteKey::class],
+    entities = [WorkDto::class, RemoteKey::class],
     version = 1,
     exportSchema = false
 )
@@ -29,5 +29,5 @@ abstract class DataDb : RoomDatabase() {
     }
 
     abstract fun works(): WorkDao
-    abstract fun remoteKeys(): WorkIdRemoteKeyDao
+    abstract fun remoteKey(): RemoteKeyDao
 }

@@ -60,9 +60,4 @@ class WorksViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             return WorksViewHolder(view)
         }
     }
-
-    fun updateCounters(item: WorkDto?) {
-        work = item
-        counters.text = item?.counters?.likes ?: DEFAULT_LIKES
-    }
 }
