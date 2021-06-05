@@ -1,7 +1,7 @@
 package by.senla.timmeleshko.task6.utils
 
 import androidx.room.TypeConverter
-import by.senla.timmeleshko.task6.model.beans.*
+import by.senla.timmeleshko.task6.model.dto.*
 import com.google.gson.Gson
 
 class Converters {

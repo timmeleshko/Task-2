@@ -1,11 +1,11 @@
-package by.senla.timmeleshko.task6.model.interfaces
+package by.senla.timmeleshko.task6.model.api
 
 import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import by.senla.timmeleshko.task6.model.beans.WorkDto
+import by.senla.timmeleshko.task6.model.dto.WorkDto
 
 @Dao
 interface WorkDao {
@@ -15,6 +15,6 @@ interface WorkDao {
     @Query("SELECT * FROM works")
     fun works(): PagingSource<Int, WorkDto>
 
-    @Query("DELETE FROM works WHERE work_id = :work_id")
-    suspend fun deleteById(work_id: String)
+    @Query("DELETE FROM works")
+    suspend fun delete()
 }

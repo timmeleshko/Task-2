@@ -4,8 +4,8 @@ import android.app.Application
 import android.content.Context
 import androidx.annotation.VisibleForTesting
 import by.senla.timmeleshko.task6.model.db.DataDb
-import by.senla.timmeleshko.task6.model.interfaces.DataApi
-import by.senla.timmeleshko.task6.model.interfaces.WorkRepository
+import by.senla.timmeleshko.task6.model.api.DataApi
+import by.senla.timmeleshko.task6.model.repository.WorkRepository
 import by.senla.timmeleshko.task6.model.repository.DbWorkRepository
 
 /**

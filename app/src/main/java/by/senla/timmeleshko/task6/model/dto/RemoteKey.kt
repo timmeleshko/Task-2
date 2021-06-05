@@ -1,4 +1,4 @@
-package by.senla.timmeleshko.task6.model.beans
+package by.senla.timmeleshko.task6.model.dto
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -8,6 +8,6 @@ import androidx.room.PrimaryKey
 data class RemoteKey(
     @PrimaryKey
     @ColumnInfo(collate = ColumnInfo.NOCASE)
-    val work_id: String,
+    val remote_key: String,
     val nextKey: String?
 )

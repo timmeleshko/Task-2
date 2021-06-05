@@ -1,4 +1,4 @@
-package by.senla.timmeleshko.task6.adapters
+package by.senla.timmeleshko.task6.view.adapters
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -9,11 +9,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import by.senla.timmeleshko.task6.R
-import by.senla.timmeleshko.task6.adapters.WorksViewHolder.WorksViewHolderConstants.DEFAULT_LIKES
-import by.senla.timmeleshko.task6.adapters.WorksViewHolder.WorksViewHolderConstants.DEFAULT_PLACEHOLDER_COLOR
-import by.senla.timmeleshko.task6.adapters.WorksViewHolder.WorksViewHolderConstants.DEFAULT_TEXT
-import by.senla.timmeleshko.task6.adapters.WorksViewHolder.WorksViewHolderConstants.DOWNLOAD_IMAGE_SIZE
-import by.senla.timmeleshko.task6.model.beans.WorkDto
+import by.senla.timmeleshko.task6.view.adapters.WorksViewHolder.WorksViewHolderConstants.DEFAULT_LIKES
+import by.senla.timmeleshko.task6.view.adapters.WorksViewHolder.WorksViewHolderConstants.DEFAULT_PLACEHOLDER_COLOR
+import by.senla.timmeleshko.task6.view.adapters.WorksViewHolder.WorksViewHolderConstants.DEFAULT_TEXT
+import by.senla.timmeleshko.task6.view.adapters.WorksViewHolder.WorksViewHolderConstants.DOWNLOAD_IMAGE_SIZE
+import by.senla.timmeleshko.task6.model.dto.WorkDto
 import by.senla.timmeleshko.task6.utils.MediaRatio
 import by.senla.timmeleshko.task6.utils.MediaSide
 import by.senla.timmeleshko.task6.utils.buildMediaUrl

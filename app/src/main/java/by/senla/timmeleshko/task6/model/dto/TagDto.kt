@@ -1,11 +1,11 @@
-package by.senla.timmeleshko.task6.model.beans
+package by.senla.timmeleshko.task6.model.dto
 
 data class TagDto(
         val tag_id: String?,
         val name: String?,
         val uri: String?,
         val _extended: String?,
-        val date: String?,
+        val date: String?
 //        val data: Data?
 ) {
 

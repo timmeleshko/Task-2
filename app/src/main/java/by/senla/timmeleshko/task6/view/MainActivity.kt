@@ -8,12 +8,11 @@ import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import by.senla.timmeleshko.task6.R
-import by.senla.timmeleshko.task6.adapters.WorksAdapter
-import by.senla.timmeleshko.task6.adapters.WorksLoadStateAdapter
+import by.senla.timmeleshko.task6.view.adapters.WorksAdapter
+import by.senla.timmeleshko.task6.view.adapters.WorksLoadStateAdapter
 import by.senla.timmeleshko.task6.model.ServiceLocator
-import by.senla.timmeleshko.task6.model.network.WorksViewModel
+import by.senla.timmeleshko.task6.model.repository.WorkRepository
 import by.senla.timmeleshko.task6.model.paging.asMergedLoadStates
-import by.senla.timmeleshko.task6.model.interfaces.WorkRepository
 import by.senla.timmeleshko.task6.utils.dpToPx
 import by.senla.timmeleshko.task6.view.MainActivity.MainActivityConstants.COLUMNS_COUNT
 import by.senla.timmeleshko.task6.view.MainActivity.MainActivityConstants.COLUMNS_COUNT_EMPTY
@@ -23,10 +22,10 @@ import by.senla.timmeleshko.task6.view.MainActivity.MainActivityConstants.HORIZO
 import by.senla.timmeleshko.task6.view.MainActivity.MainActivityConstants.VERTICAL_COLUMN_MARGIN
 import com.rubensousa.decorator.GridSpanMarginDecoration
 import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.filter
-import kotlinx.coroutines.flow.collect
 
 class MainActivity : AppCompatActivity() {
 
@@ -58,7 +57,8 @@ class MainActivity : AppCompatActivity() {
                 modelClass: Class<T>,
                 handle: SavedStateHandle
             ): T {
-                val repo = ServiceLocator.instance(this@MainActivity).getRepository(WorkRepository.Type.DB)
+                val repo = ServiceLocator.instance(this@MainActivity)
+                        .getRepository(WorkRepository.Type.DB)
                 @Suppress("UNCHECKED_CAST")
                 return WorksViewModel(repo) as T
             }
@@ -88,8 +88,8 @@ class MainActivity : AppCompatActivity() {
                 )
             )
             adapter = this@MainActivity.adapter.withLoadStateHeaderAndFooter(
-                header = WorksLoadStateAdapter(),
-                footer = WorksLoadStateAdapter()
+                header = WorksLoadStateAdapter(this@MainActivity.adapter),
+                footer = WorksLoadStateAdapter(this@MainActivity.adapter)
             )
         }
         lifecycleScope.launchWhenCreated {

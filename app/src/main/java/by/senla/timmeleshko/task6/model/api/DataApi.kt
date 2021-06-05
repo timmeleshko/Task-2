@@ -1,9 +1,9 @@
-package by.senla.timmeleshko.task6.model.interfaces
+package by.senla.timmeleshko.task6.model.api
 
 import android.util.Log
 import by.senla.timmeleshko.task6.model.Constants
-import by.senla.timmeleshko.task6.model.beans.MediaDto
-import by.senla.timmeleshko.task6.model.beans.WorkDto
+import by.senla.timmeleshko.task6.model.dto.MediaDto
+import by.senla.timmeleshko.task6.model.dto.WorkDto
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -22,8 +22,8 @@ interface DataApi {
     class ListingResponse(val data: ListingData)
 
     class ListingData(
-        val works: List<WorkDto>,
-        val media: List<MediaDto>?
+            val works: List<WorkDto>,
+            val media: List<MediaDto>?
     )
 
     companion object {

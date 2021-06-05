@@ -1,4 +1,4 @@
-package by.senla.timmeleshko.task6.model.beans
+package by.senla.timmeleshko.task6.model.dto
 
 import androidx.room.*
 import by.senla.timmeleshko.task6.utils.Converters
@@ -69,4 +69,6 @@ data class WorkDto(
         val aset_id: String?,
         val aset_name: String?
     )
+
+    var indexInResponse: Int = -1
 }

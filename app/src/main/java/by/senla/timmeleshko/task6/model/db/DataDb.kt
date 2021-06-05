@@ -4,10 +4,10 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import by.senla.timmeleshko.task6.model.beans.RemoteKey
-import by.senla.timmeleshko.task6.model.beans.WorkDto
-import by.senla.timmeleshko.task6.model.interfaces.RemoteKeyDao
-import by.senla.timmeleshko.task6.model.interfaces.WorkDao
+import by.senla.timmeleshko.task6.model.dto.RemoteKey
+import by.senla.timmeleshko.task6.model.dto.WorkDto
+import by.senla.timmeleshko.task6.model.api.RemoteKeyDao
+import by.senla.timmeleshko.task6.model.api.WorkDao
 
 @Database(
     entities = [WorkDto::class, RemoteKey::class],

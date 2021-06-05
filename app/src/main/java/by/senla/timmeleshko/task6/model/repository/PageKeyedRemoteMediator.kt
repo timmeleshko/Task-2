@@ -8,14 +8,14 @@ import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
 import by.senla.timmeleshko.task6.model.Constants.INFO
-import by.senla.timmeleshko.task6.model.beans.MediaDto
-import by.senla.timmeleshko.task6.model.beans.RemoteKey
-import by.senla.timmeleshko.task6.model.beans.WorkDto
+import by.senla.timmeleshko.task6.model.dto.MediaDto
+import by.senla.timmeleshko.task6.model.dto.RemoteKey
+import by.senla.timmeleshko.task6.model.dto.WorkDto
 import by.senla.timmeleshko.task6.model.db.DataDb
-import by.senla.timmeleshko.task6.model.interfaces.DataApi
-import by.senla.timmeleshko.task6.model.interfaces.RemoteKeyDao
-import by.senla.timmeleshko.task6.model.interfaces.WorkDao
-import by.senla.timmeleshko.task6.model.network.WorksViewModel.Companion.RECYCLER_VIEW_PAGE_SIZE
+import by.senla.timmeleshko.task6.model.api.DataApi
+import by.senla.timmeleshko.task6.model.api.RemoteKeyDao
+import by.senla.timmeleshko.task6.model.api.WorkDao
+import by.senla.timmeleshko.task6.view.WorksViewModel.Companion.RECYCLER_VIEW_PAGE_SIZE
 import retrofit2.HttpException
 import java.io.IOException
 
@@ -23,7 +23,7 @@ import java.io.IOException
 class PageKeyedRemoteMediator(
     private val dataDb: DataDb,
     private val dataApi: DataApi,
-    private val work_id: String
+    private val key: String
 ) : RemoteMediator<Int, WorkDto>() {
 
     private val workDao: WorkDao = dataDb.works()
@@ -51,7 +51,7 @@ class PageKeyedRemoteMediator(
                 PREPEND -> return MediatorResult.Success(endOfPaginationReached = true)
                 APPEND -> {
                     val remoteKey = dataDb.withTransaction {
-                        remoteKeyDao.remoteKeyById(work_id)
+                        remoteKeyDao.remoteKeys(key)
                     }
                     if (remoteKey.nextKey == null) {
                         return MediatorResult.Success(endOfPaginationReached = true)
@@ -61,10 +61,7 @@ class PageKeyedRemoteMediator(
             }
             val data = dataApi.getData(
                 offset = loadKey,
-                count = when (loadType) {
-                    REFRESH -> state.config.initialLoadSize
-                    else -> RECYCLER_VIEW_PAGE_SIZE
-                }
+                count = RECYCLER_VIEW_PAGE_SIZE
             ).data
 
             val items = data.works.map { it }
@@ -73,10 +70,10 @@ class PageKeyedRemoteMediator(
             val newOffset = (data.works.size + (loadKey?.toInt() ?: 0)).toString()
             dataDb.withTransaction {
                 if (loadType == REFRESH) {
-                    workDao.deleteById(work_id)
-                    remoteKeyDao.deleteById(work_id)
+                    workDao.delete()
+                    remoteKeyDao.delete()
                 }
-                remoteKeyDao.insert(RemoteKey(work_id, newOffset))
+                remoteKeyDao.insert(RemoteKey(key, newOffset))
                 workDao.insertAll(items)
             }
             Log.i(INFO, newOffset)
