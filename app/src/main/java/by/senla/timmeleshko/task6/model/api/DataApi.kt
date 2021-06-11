@@ -13,7 +13,7 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface DataApi {
-    @GET("works.search?extends=works.alt_media_ids,works.media_id,works.counters,works.properties,works.collection_id,works.infos,works.description,filters.uri,works.aset_ids,works.artist_ids&artist_id=739&order=default")
+    @GET("works.search?count_filters=20&extends=works.media_id,works.counters,works.properties,works.collection_id,works.infos,works.description,filters.uri,works.aset_ids,works.artist_ids,works.media_id&with_filters=y&filter_prefixes=salest,genre,style,tech&artist_id=65")
     suspend fun getData(
         @Query("offset") offset: String? = null,
         @Query("count") count: Int = 25

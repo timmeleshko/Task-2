@@ -14,6 +14,7 @@ import by.senla.timmeleshko.task6.model.ServiceLocator
 import by.senla.timmeleshko.task6.model.repository.WorkRepository
 import by.senla.timmeleshko.task6.model.paging.asMergedLoadStates
 import by.senla.timmeleshko.task6.utils.dpToPx
+import by.senla.timmeleshko.task6.view.MainActivity.MainActivityConstants.CHIPS_VIEW_TYPE
 import by.senla.timmeleshko.task6.view.MainActivity.MainActivityConstants.COLUMNS_COUNT
 import by.senla.timmeleshko.task6.view.MainActivity.MainActivityConstants.COLUMNS_COUNT_EMPTY
 import by.senla.timmeleshko.task6.view.MainActivity.MainActivityConstants.DATA_VIEW_TYPE
@@ -39,6 +40,7 @@ class MainActivity : AppCompatActivity() {
         const val HORIZONTAL_COLUMN_MARGIN = 16
         const val DATA_VIEW_TYPE = 1
         const val FOOTER_VIEW_TYPE = 2
+        const val CHIPS_VIEW_TYPE = 3
     }
 
     @InternalCoroutinesApi
@@ -65,7 +67,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
     @InternalCoroutinesApi
     private fun initAdapter() {
         adapter = WorksAdapter(this)
@@ -74,7 +75,7 @@ class MainActivity : AppCompatActivity() {
             override fun getSpanSize(position: Int): Int {
                 return when (adapter.getItemViewType(position)) {
                     DATA_VIEW_TYPE -> COLUMNS_COUNT_EMPTY
-                    FOOTER_VIEW_TYPE -> COLUMNS_COUNT
+                    FOOTER_VIEW_TYPE, CHIPS_VIEW_TYPE -> COLUMNS_COUNT
                     else -> COLUMNS_COUNT
                 }
             }

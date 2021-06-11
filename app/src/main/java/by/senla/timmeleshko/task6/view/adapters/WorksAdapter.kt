@@ -7,29 +7,52 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.RecyclerView
 import by.senla.timmeleshko.task6.model.dto.WorkDto
+import by.senla.timmeleshko.task6.view.MainActivity.MainActivityConstants.CHIPS_VIEW_TYPE
 import by.senla.timmeleshko.task6.view.MainActivity.MainActivityConstants.DATA_VIEW_TYPE
 import by.senla.timmeleshko.task6.view.MainActivity.MainActivityConstants.FOOTER_VIEW_TYPE
 
 class WorksAdapter(
     private val context: Context,
     private var lastPosition: Int = -1
-) : PagingDataAdapter<WorkDto, WorksViewHolder>(POST_COMPARATOR) {
+) : PagingDataAdapter<WorkDto, RecyclerView.ViewHolder>(POST_COMPARATOR) {
 
-    override fun onBindViewHolder(holder: WorksViewHolder, position: Int) {
-        holder.bind(getItem(position))
-        setAnimation(holder.itemView, position)
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        if (position > 0) {
+            holder as WorksViewHolder
+            holder.bind(getItem(position - 1))
+        }
+        setAnimation(holder.itemView, position - 1)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WorksViewHolder {
-        return WorksViewHolder.create(parent)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return if (viewType == CHIPS_VIEW_TYPE) {
+            ChipsViewHolder.create(parent)
+        } else {
+            WorksViewHolder.create(parent)
+        }
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (position < super.getItemCount()) DATA_VIEW_TYPE else FOOTER_VIEW_TYPE
+        return when {
+            position == 0 -> {
+                CHIPS_VIEW_TYPE
+            }
+            position < super.getItemCount() - 1 && position > 0 -> {
+                DATA_VIEW_TYPE
+            }
+            else -> {
+                FOOTER_VIEW_TYPE
+            }
+        }
     }
 
-    override fun onViewDetachedFromWindow(holder: WorksViewHolder) {
+    override fun getItemCount(): Int {
+        return super.getItemCount() - 1
+    }
+
+    override fun onViewDetachedFromWindow(holder: RecyclerView.ViewHolder) {
         holder.itemView.clearAnimation()
     }
 
