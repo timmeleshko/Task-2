@@ -65,9 +65,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+
     @InternalCoroutinesApi
     private fun initAdapter() {
-        adapter = WorksAdapter()
+        adapter = WorksAdapter(this)
         val gridLayoutManager = GridLayoutManager(this@MainActivity, COLUMNS_COUNT)
         gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {

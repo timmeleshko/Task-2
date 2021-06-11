@@ -26,7 +26,7 @@ data class WorkDto(
     val is_adult: String?,
     val privacy: String?,
     val name: String?,
-    val names: List<String>?,
+//    val names: List<String>?,
     val description: String?,
     val artist_hidden_price: String?,
     val uri: String?,
