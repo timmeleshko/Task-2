@@ -2,6 +2,7 @@ package by.senla.timmeleshko.task6.model.api
 
 import android.util.Log
 import by.senla.timmeleshko.task6.model.Constants
+import by.senla.timmeleshko.task6.model.dto.FilterDto
 import by.senla.timmeleshko.task6.model.dto.MediaDto
 import by.senla.timmeleshko.task6.model.dto.WorkDto
 import okhttp3.OkHttpClient
@@ -23,7 +24,8 @@ interface DataApi {
 
     class ListingData(
             val works: List<WorkDto>,
-            val media: List<MediaDto>?
+            val media: List<MediaDto>?,
+            val filters: List<FilterDto>?
     )
 
     companion object {

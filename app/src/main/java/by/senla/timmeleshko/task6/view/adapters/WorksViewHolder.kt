@@ -30,10 +30,8 @@ class WorksViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     private val name: TextView = view.findViewById(R.id.itemTitle)
     private val counters: TextView = view.findViewById(R.id.itemLikesAmount)
-    private var work : WorkDto? = null
 
     fun bind(work: WorkDto?) {
-        this.work = work
         if (work != null) {
             name.text = work.name ?: DEFAULT_TEXT
             counters.text = work.counters?.likes ?: DEFAULT_LIKES

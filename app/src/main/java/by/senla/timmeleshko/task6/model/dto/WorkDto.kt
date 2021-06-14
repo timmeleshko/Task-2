@@ -12,6 +12,7 @@ data class WorkDto(
     @ColumnInfo(name = "work_id")
     val work_id: String,
     var media_dto: MediaDto?,
+    var filter_dto: List<FilterDto>?,
     val user_id: String?,
     val uri_owner: String?,
     val media_id: String?,

@@ -12,6 +12,7 @@ import by.senla.timmeleshko.task6.model.api.DataApi
 import by.senla.timmeleshko.task6.model.api.RemoteKeyDao
 import by.senla.timmeleshko.task6.model.api.WorkDao
 import by.senla.timmeleshko.task6.model.db.DataDb
+import by.senla.timmeleshko.task6.model.dto.FilterDto
 import by.senla.timmeleshko.task6.model.dto.MediaDto
 import by.senla.timmeleshko.task6.model.dto.RemoteKey
 import by.senla.timmeleshko.task6.model.dto.WorkDto
@@ -41,6 +42,13 @@ class PageKeyedRemoteMediator(
         return worksList
     }
 
+    private fun loadFilters(worksList: List<WorkDto>, filters: List<FilterDto>) : List<WorkDto> {
+        worksList.forEach {
+            c -> c.filter_dto = filters
+        }
+        return worksList
+    }
+
     override suspend fun load(
         loadType: LoadType,
         state: PagingState<Int, WorkDto>
@@ -66,6 +74,7 @@ class PageKeyedRemoteMediator(
 
             val items = data.works.map { it }
             data.media?.let { media -> checkMediaId(items, media.map { it }) }
+            data.filters?.let { filter -> loadFilters(items, filter.map { it }) }
 
             val newOffset = (data.works.size + (loadKey?.toInt() ?: 0)).toString()
             dataDb.withTransaction {

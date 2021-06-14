@@ -58,4 +58,10 @@ class Converters {
 
     @TypeConverter
     fun fromTagList(value: String) = Gson().fromJson(value, Array<TagDto>::class.java)?.toList()
+
+    @TypeConverter
+    fun toFilterList(value: List<FilterDto>?): String = Gson().toJson(value)
+
+    @TypeConverter
+    fun fromFilterList(value: String) = Gson().fromJson(value, Array<FilterDto>::class.java)?.toList()
 }
