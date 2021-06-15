@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface WorkRepository {
 
-    fun worksOfData(key: String, pageSize: Int): Flow<PagingData<WorkDto>>
+    fun worksOfData(uri: String, pageSize: Int): Flow<PagingData<WorkDto>>
 
     enum class Type {
         DB

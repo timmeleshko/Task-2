@@ -14,7 +14,7 @@ import by.senla.timmeleshko.task6.view.MainActivity.MainActivityConstants.DATA_V
 import by.senla.timmeleshko.task6.view.MainActivity.MainActivityConstants.FOOTER_VIEW_TYPE
 import by.senla.timmeleshko.task6.view.adapters.WorksAdapter.WorksAdapterConstants.CHIPS_POS
 
-class WorksAdapter(
+abstract class WorksAdapter(
     private val context: Context,
     private var lastPosition: Int = -1
 ) : PagingDataAdapter<WorkDto, RecyclerView.ViewHolder>(POST_COMPARATOR) {
@@ -22,6 +22,8 @@ class WorksAdapter(
     object WorksAdapterConstants {
         const val CHIPS_POS = 0
     }
+
+    abstract fun clickAdapterChip(uri: String)
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (position == CHIPS_POS) {
@@ -36,7 +38,7 @@ class WorksAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == CHIPS_VIEW_TYPE) {
-            ChipsViewHolder.create(parent)
+            ChipsViewHolder.create(parent, this)
         } else {
             WorksViewHolder.create(parent)
         }

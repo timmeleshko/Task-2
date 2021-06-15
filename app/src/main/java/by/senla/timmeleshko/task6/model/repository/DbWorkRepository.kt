@@ -9,9 +9,9 @@ import by.senla.timmeleshko.task6.model.api.DataApi
 class DbWorkRepository(val dataDb: DataDb, val dataApi: DataApi) : WorkRepository {
 
     @OptIn(ExperimentalPagingApi::class)
-    override fun worksOfData(key: String, pageSize: Int) = Pager(
+    override fun worksOfData(uri: String, pageSize: Int) = Pager(
         config = PagingConfig(pageSize = pageSize),
-        remoteMediator = PageKeyedRemoteMediator(dataDb, dataApi, key)
+        remoteMediator = PageKeyedRemoteMediator(dataDb, dataApi, uri)
     ) {
         dataDb.works().works()
     }.flow

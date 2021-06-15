@@ -40,6 +40,7 @@ class ExtendedChipGroup : ChipGroup {
             if (chipListItem.isNotEmpty()) {
                 val chip = Chip(context)
                 chip.text = chipListItem
+                chip.isCheckable = true
                 lastChipsList.add(chipListItem)
                 addView(chip)
             }
@@ -82,6 +83,7 @@ class ExtendedChipGroup : ChipGroup {
                     if (row == maxRow && (penultimate) > 0) {
                         val showChip = (getChildAt(penultimate) as Chip)
                         showChip.text = CHIP_MORE_TITLE
+                        showChip.isCheckable = false
                         showChip.setOnClickListener {
                             maxRow = Int.MAX_VALUE
                             setChips(ArrayList(lastChipsList))

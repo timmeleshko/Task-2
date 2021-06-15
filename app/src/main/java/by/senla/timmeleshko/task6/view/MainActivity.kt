@@ -8,11 +8,9 @@ import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import by.senla.timmeleshko.task6.R
-import by.senla.timmeleshko.task6.view.adapters.WorksAdapter
-import by.senla.timmeleshko.task6.view.adapters.WorksLoadStateAdapter
 import by.senla.timmeleshko.task6.model.ServiceLocator
-import by.senla.timmeleshko.task6.model.repository.WorkRepository
 import by.senla.timmeleshko.task6.model.paging.asMergedLoadStates
+import by.senla.timmeleshko.task6.model.repository.WorkRepository
 import by.senla.timmeleshko.task6.utils.dpToPx
 import by.senla.timmeleshko.task6.view.MainActivity.MainActivityConstants.CHIPS_VIEW_TYPE
 import by.senla.timmeleshko.task6.view.MainActivity.MainActivityConstants.COLUMNS_COUNT
@@ -21,6 +19,8 @@ import by.senla.timmeleshko.task6.view.MainActivity.MainActivityConstants.DATA_V
 import by.senla.timmeleshko.task6.view.MainActivity.MainActivityConstants.FOOTER_VIEW_TYPE
 import by.senla.timmeleshko.task6.view.MainActivity.MainActivityConstants.HORIZONTAL_COLUMN_MARGIN
 import by.senla.timmeleshko.task6.view.MainActivity.MainActivityConstants.VERTICAL_COLUMN_MARGIN
+import by.senla.timmeleshko.task6.view.adapters.WorksAdapter
+import by.senla.timmeleshko.task6.view.adapters.WorksLoadStateAdapter
 import com.rubensousa.decorator.GridSpanMarginDecoration
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collect
@@ -62,14 +62,18 @@ class MainActivity : AppCompatActivity() {
                 val repo = ServiceLocator.instance(this@MainActivity)
                         .getRepository(WorkRepository.Type.DB)
                 @Suppress("UNCHECKED_CAST")
-                return WorksViewModel(repo) as T
+                return WorksViewModel(repo, handle) as T
             }
         }
     }
 
     @InternalCoroutinesApi
     private fun initAdapter() {
-        adapter = WorksAdapter(this)
+        adapter = object : WorksAdapter(this@MainActivity) {
+            override fun clickAdapterChip(uri: String) {
+                viewModel.showWork(uri)
+            }
+        }
         val gridLayoutManager = GridLayoutManager(this@MainActivity, COLUMNS_COUNT)
         gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {

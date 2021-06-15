@@ -4,5 +4,11 @@ data class Data(
     val count: Int?,
     val works: List<WorkDto>?,
     val media: List<MediaDto>?,
-    val filters: List<FilterDto>?
+    val filters: List<FilterDto>?,
+    val techniques: List<TechniqueDto>?,
+    val styles: List<StyleDto>?,
+    val genres: List<GenreDto>?,
+    val types: List<TypeDto>?,
+    val materials: List<MaterialDto>?,
+    val tags: List<TagDto>?
 )
