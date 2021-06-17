@@ -38,6 +38,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var progressBar: ProgressBar
     private lateinit var headerAdapter: HeaderAdapter
     private lateinit var worksAdapter: WorksAdapter
+    private lateinit var worksConcatAdapter: ConcatAdapter
     private lateinit var concatAdapter: ConcatAdapter
 
     object MainActivityConstants {
@@ -59,8 +60,33 @@ class MainActivity : AppCompatActivity() {
         progressBar = findViewById(R.id.progressBar)
         initHeaderAdapter()
         initWorksAdapter()
-        concatAdapter = ConcatAdapter(headerAdapter, worksAdapter)
-        recyclerView.adapter = concatAdapter
+
+        worksConcatAdapter = worksAdapter.withLoadStateHeaderAndFooter(
+            header = WorksLoadStateAdapter(this@MainActivity.worksAdapter),
+            footer = WorksLoadStateAdapter(this@MainActivity.worksAdapter)
+        )
+        concatAdapter = ConcatAdapter(headerAdapter, worksConcatAdapter)
+        val gridLayoutManager = GridLayoutManager(this@MainActivity, COLUMNS_COUNT)
+        gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+            override fun getSpanSize(position: Int): Int {
+                return when (concatAdapter.getItemViewType(position)) {
+                    DATA_VIEW_TYPE -> COLUMNS_COUNT_EMPTY
+                    FOOTER_VIEW_TYPE, CHIPS_VIEW_TYPE -> COLUMNS_COUNT
+                    else -> COLUMNS_COUNT
+                }
+            }
+        }
+        recyclerView.apply {
+            layoutManager = gridLayoutManager
+            addItemDecoration(
+                GridSpanMarginDecoration(
+                    verticalMargin = dpToPx(VERTICAL_COLUMN_MARGIN),
+                    horizontalMargin = dpToPx(HORIZONTAL_COLUMN_MARGIN),
+                    gridLayoutManager = gridLayoutManager
+                )
+            )
+            adapter = concatAdapter
+        }
     }
 
     private val viewModel: WorksViewModel by viewModels {
@@ -94,30 +120,6 @@ class MainActivity : AppCompatActivity() {
     @InternalCoroutinesApi
     private fun initWorksAdapter() {
         worksAdapter = WorksAdapter(this@MainActivity)
-        val gridLayoutManager = GridLayoutManager(this@MainActivity, COLUMNS_COUNT)
-        gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
-            override fun getSpanSize(position: Int): Int {
-                return when (concatAdapter.getItemViewType(position)) {
-                    DATA_VIEW_TYPE -> COLUMNS_COUNT_EMPTY
-                    FOOTER_VIEW_TYPE, CHIPS_VIEW_TYPE -> COLUMNS_COUNT
-                    else -> COLUMNS_COUNT
-                }
-            }
-        }
-        recyclerView.apply {
-            layoutManager = gridLayoutManager
-            addItemDecoration(
-                GridSpanMarginDecoration(
-                    verticalMargin = dpToPx(VERTICAL_COLUMN_MARGIN),
-                    horizontalMargin = dpToPx(HORIZONTAL_COLUMN_MARGIN),
-                    gridLayoutManager = gridLayoutManager
-                )
-            )
-            adapter = this@MainActivity.worksAdapter.withLoadStateHeaderAndFooter(
-                header = WorksLoadStateAdapter(this@MainActivity.worksAdapter),
-                footer = WorksLoadStateAdapter(this@MainActivity.worksAdapter)
-            )
-        }
         lifecycleScope.launchWhenCreated {
             worksAdapter.loadStateFlow.collectLatest { loadStates ->
                 progressBar.isVisible = loadStates.mediator?.refresh is LoadState.Loading
