@@ -7,49 +7,27 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.RecyclerView
 import by.senla.timmeleshko.task6.model.dto.WorkDto
-import by.senla.timmeleshko.task6.view.MainActivity.MainActivityConstants.CHIPS_VIEW_TYPE
 import by.senla.timmeleshko.task6.view.MainActivity.MainActivityConstants.DATA_VIEW_TYPE
 import by.senla.timmeleshko.task6.view.MainActivity.MainActivityConstants.FOOTER_VIEW_TYPE
-import by.senla.timmeleshko.task6.view.adapters.WorksAdapter.WorksAdapterConstants.CHIPS_POS
 
-abstract class WorksAdapter(
+class WorksAdapter(
     private val context: Context,
     private var lastPosition: Int = -1
-) : PagingDataAdapter<WorkDto, RecyclerView.ViewHolder>(POST_COMPARATOR) {
+) : PagingDataAdapter<WorkDto, WorksViewHolder>(POST_COMPARATOR) {
 
-    object WorksAdapterConstants {
-        const val CHIPS_POS = 0
+    override fun onBindViewHolder(holder: WorksViewHolder, position: Int) {
+        holder.bind(getItem(position))
+        setAnimation(holder.itemView, position)
     }
 
-    abstract fun clickAdapterChip(uri: String)
-
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (position == CHIPS_POS) {
-            holder as ChipsViewHolder
-            holder.bind(getItem(position))
-        } else if (position > CHIPS_POS) {
-            holder as WorksViewHolder
-            holder.bind(getItem(position - 1))
-            setAnimation(holder.itemView, position - 1)
-        }
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return if (viewType == CHIPS_VIEW_TYPE) {
-            ChipsViewHolder.create(parent, this)
-        } else {
-            WorksViewHolder.create(parent)
-        }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WorksViewHolder {
+        return WorksViewHolder.create(parent)
     }
 
     override fun getItemViewType(position: Int): Int {
         return when (position) {
-            CHIPS_POS -> {
-                CHIPS_VIEW_TYPE
-            }
-            in (CHIPS_POS + 1) until itemCount -> {
+            in 0 until itemCount -> {
                 DATA_VIEW_TYPE
             }
             else -> {
@@ -58,11 +36,7 @@ abstract class WorksAdapter(
         }
     }
 
-    override fun getItemCount(): Int {
-        return super.getItemCount() - 1
-    }
-
-    override fun onViewDetachedFromWindow(holder: RecyclerView.ViewHolder) {
+    override fun onViewDetachedFromWindow(holder: WorksViewHolder) {
         holder.itemView.clearAnimation()
     }
 

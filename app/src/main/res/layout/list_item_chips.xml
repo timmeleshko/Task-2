@@ -4,15 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <by.senla.timmeleshko.task6.view.ExtendedChipGroup
+    <by.senla.timmeleshko.task6.view.customView.ExtendedChipGroup
         android:id="@+id/chipGroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:singleSelection="false">
+        app:singleSelection="true"
+        app:selectionRequired="true">
 
-    </by.senla.timmeleshko.task6.view.ExtendedChipGroup>
+    </by.senla.timmeleshko.task6.view.customView.ExtendedChipGroup>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
