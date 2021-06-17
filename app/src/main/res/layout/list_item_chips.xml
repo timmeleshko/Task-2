@@ -11,8 +11,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:singleSelection="true"
-        app:selectionRequired="true">
+        app:singleSelection="true">
 
     </by.senla.timmeleshko.task6.view.customView.ExtendedChipGroup>
 

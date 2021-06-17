@@ -8,7 +8,6 @@ import androidx.core.view.isEmpty
 import androidx.recyclerview.widget.RecyclerView
 import by.senla.timmeleshko.task6.R
 import by.senla.timmeleshko.task6.model.dto.FilterDto
-import by.senla.timmeleshko.task6.view.MainActivity
 import by.senla.timmeleshko.task6.view.customView.ExtendedChipGroup
 import com.google.android.material.chip.Chip
 
@@ -25,7 +24,7 @@ abstract class HeaderAdapter(
         return ListViewHolder(itemView)
     }
 
-    abstract fun clickChip(uri: String)
+    abstract fun clickChip(uri: String?)
 
     fun updateFilters(filters: List<FilterDto>?) {
         if (filters != null) {
@@ -34,24 +33,19 @@ abstract class HeaderAdapter(
         }
     }
 
-    override fun getItemViewType(position: Int): Int {
-        return MainActivity.MainActivityConstants.CHIPS_VIEW_TYPE
-    }
-
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         val chipGroup = holder.chipGroup
         if (chipGroup.isEmpty()) {
             view.setOnClickListener { chipGroup.update() }
             chipGroup.setChips(filters.map { convertedName(it) })
-            chipGroup.isSingleSelection = true
             chipGroup.setOnCheckedChangeListener { c, i ->
                 val chip: Chip? = c.findViewById(i)
                 if (chip != null) {
-                    if (chip.isChecked) {
-                        filters.find { filter -> convertedName(filter) == chip.text.toString() }?.uri?.let {
-                            clickChip(it)
-                        }
+                    filters.find { filter -> convertedName(filter) == chip.text.toString() }?.uri?.let {
+                        clickChip(it)
                     }
+                } else {
+                    clickChip(null)
                 }
             }
         }

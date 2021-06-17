@@ -27,7 +27,7 @@ class WorksAdapter(
 
     override fun getItemViewType(position: Int): Int {
         return when (position) {
-            in 0 until itemCount -> {
+            in 1 until itemCount + 1 -> {
                 DATA_VIEW_TYPE
             }
             else -> {
