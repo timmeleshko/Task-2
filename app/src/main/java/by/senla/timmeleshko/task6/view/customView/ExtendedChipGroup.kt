@@ -37,11 +37,13 @@ class ExtendedChipGroup : ChipGroup {
     fun setChips(chipsList: List<String>) {
         removeAllViews()
         lastChipsList.clear()
+            // тренируй навык работы со стримами, они сокращают код и больше соответствуют стилистике котлин
         for (chipListItem in chipsList) {
             if (chipListItem.isNotEmpty()) {
                 val chip = Chip(context)
                 val chipDrawable = ChipDrawable.createFromAttributes(context, null,
                     0, R.style.Widget_MaterialComponents_Chip_Choice)
+                // для работы с одной и той же переменной используй соответствующие функции котлин with, let, also
                 chip.setChipDrawable(chipDrawable)
                 chip.text = chipListItem
                 chip.isCheckable = true

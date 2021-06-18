@@ -29,6 +29,7 @@ class FiltersViewModel(
         return data
     }
 
+    // код повторяется, значит нужно вынести общий код в отдельный метод и использовать generics по необходимости
     private fun loadFilters(data: Data) : Data {
         data.techniques?.forEach { a ->
             data.filters?.stream()
@@ -59,8 +60,11 @@ class FiltersViewModel(
         return data
     }
 
+    // не нужно в одном проекте использовать разные подходы для асинхронной обработки данных
+    // если применяешь корутины то используй только корутины, если RX то только RX
     private fun loadData() {
         api.getDataForFilter()
+            // шедулеры нужно тогда уж тоже инъецировать с помощью ServiceLocator, раз уже ты в ручную инъецируешь
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : Observer<DataWrapper?> {
