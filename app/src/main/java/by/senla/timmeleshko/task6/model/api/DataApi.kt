@@ -2,7 +2,9 @@ package by.senla.timmeleshko.task6.model.api
 
 import android.util.Log
 import by.senla.timmeleshko.task6.model.Constants
-import by.senla.timmeleshko.task6.model.dto.*
+import by.senla.timmeleshko.task6.model.dto.DataWrapper
+import by.senla.timmeleshko.task6.model.dto.MediaDto
+import by.senla.timmeleshko.task6.model.dto.WorkDto
 import io.reactivex.Observable
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -25,7 +27,6 @@ interface DataApi {
     ): ListingResponse
 
     class ListingResponse(val data: ListingData)
-
     class ListingData(
             val works: List<WorkDto>,
             val media: List<MediaDto>?

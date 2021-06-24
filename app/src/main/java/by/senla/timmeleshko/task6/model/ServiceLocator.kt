@@ -2,17 +2,15 @@ package by.senla.timmeleshko.task6.model
 
 import android.app.Application
 import android.content.Context
-import androidx.annotation.VisibleForTesting
-import by.senla.timmeleshko.task6.model.db.DataDb
 import by.senla.timmeleshko.task6.model.api.DataApi
-import by.senla.timmeleshko.task6.model.repository.WorkRepository
+import by.senla.timmeleshko.task6.model.db.DataDb
 import by.senla.timmeleshko.task6.model.repository.DbWorkRepository
+import by.senla.timmeleshko.task6.model.repository.WorkRepository
+import io.reactivex.Scheduler
+import io.reactivex.schedulers.Schedulers
 
-/**
- * Super simplified service locator implementation to allow us to replace default implementations
- * for testing.
- */
 interface ServiceLocator {
+
     companion object {
         private val LOCK = Any()
         private var instance: ServiceLocator? = null
@@ -26,24 +24,13 @@ interface ServiceLocator {
                 return instance!!
             }
         }
-
-        /**
-         * Allows tests to replace the default implementations.
-         */
-        @VisibleForTesting
-        fun swap(locator: ServiceLocator) {
-            instance = locator
-        }
     }
 
     fun getRepository(type: WorkRepository.Type): WorkRepository
-
     fun getDataApi(): DataApi
+    fun getScheduler(): Scheduler
 }
 
-/**
- * default implementation of ServiceLocator that uses production endpoints.
- */
 open class DefaultServiceLocator(val app: Application, val useInMemoryDb: Boolean) : ServiceLocator {
     private val db by lazy {
         DataDb.create(app, useInMemoryDb)
@@ -52,6 +39,12 @@ open class DefaultServiceLocator(val app: Application, val useInMemoryDb: Boolea
     private val api by lazy {
         DataApi.create()
     }
+
+    private val sch by lazy {
+        Schedulers.io()
+    }
+
+    override fun getScheduler(): Scheduler = sch
 
     override fun getRepository(type: WorkRepository.Type): WorkRepository {
         return DbWorkRepository(dataDb = db, dataApi = getDataApi())

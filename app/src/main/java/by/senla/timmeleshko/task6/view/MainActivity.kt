@@ -48,6 +48,7 @@ class MainActivity : AppCompatActivity() {
         const val FOOTER_VIEW_TYPE = 2
     }
 
+    @ExperimentalCoroutinesApi
     @InternalCoroutinesApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -98,6 +99,9 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+    private val filtersViewModel: FiltersViewModel by viewModels {
+        FilterViewModelFactory(ServiceLocator.instance(this@MainActivity))
+    }
 
     private fun initHeaderAdapter() {
         headerAdapter = object : HeaderAdapter(listOf()) {
@@ -109,7 +113,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-        val filtersViewModel = ViewModelProvider(this).get(FiltersViewModel::class.java)
         filtersViewModel.getData().observe(this@MainActivity, Observer { data ->
             data.filters.let {
                 headerAdapter.updateFilters(it)

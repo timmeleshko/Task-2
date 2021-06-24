@@ -3,16 +3,18 @@ package by.senla.timmeleshko.task6.view
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import by.senla.timmeleshko.task6.model.api.DataApi
-import by.senla.timmeleshko.task6.model.dto.*
+import by.senla.timmeleshko.task6.model.ServiceLocator
+import by.senla.timmeleshko.task6.model.dto.Data
+import by.senla.timmeleshko.task6.model.dto.DataWrapper
+import by.senla.timmeleshko.task6.model.dto.FilterDto
+import by.senla.timmeleshko.task6.model.dto.GeneralData
 import by.senla.timmeleshko.task6.view.FiltersViewModel.FiltersViewModelConstants.FILTER_SALEST
 import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
 
 class FiltersViewModel(
-    private val api: DataApi = DataApi.create()
+    private val serviceLocator: ServiceLocator
 ) : ViewModel() {
 
     object FiltersViewModelConstants {
@@ -29,33 +31,20 @@ class FiltersViewModel(
         return data
     }
 
-    // код повторяется, значит нужно вынести общий код в отдельный метод и использовать generics по необходимости
+    private fun iterateFilters(list: List<GeneralData>?, filtersList: List<FilterDto>?) {
+        list?.forEach { a ->
+            filtersList?.stream()
+                ?.filter { b -> b.uri == a.uri }
+                ?.forEach { c -> c.name = a.name }
+        }
+    }
+
     private fun loadFilters(data: Data) : Data {
-        data.techniques?.forEach { a ->
-            data.filters?.stream()
-                ?.filter { b -> b.uri == a.uri }
-                ?.forEach { c -> c.name = a.name }
-        }
-        data.styles?.forEach { a ->
-            data.filters?.stream()
-                ?.filter { b -> b.uri == a.uri }
-                ?.forEach { c -> c.name = a.name }
-        }
-        data.genres?.forEach { a ->
-            data.filters?.stream()
-                ?.filter { b -> b.uri == a.uri }
-                ?.forEach { c -> c.name = a.name }
-        }
-        data.types?.forEach { a ->
-            data.filters?.stream()
-                ?.filter { b -> b.uri == a.uri }
-                ?.forEach { c -> c.name = a.name }
-        }
-        data.materials?.forEach { a ->
-            data.filters?.stream()
-                ?.filter { b -> b.uri == a.uri }
-                ?.forEach { c -> c.name = a.name }
-        }
+        iterateFilters(data.techniques, data.filters)
+        iterateFilters(data.styles, data.filters)
+        iterateFilters(data.genres, data.filters)
+        iterateFilters(data.types, data.filters)
+        iterateFilters(data.materials, data.filters)
         data.filters = data.filters?.filter { a -> a.uri != null && !a.uri.contains(FILTER_SALEST) }
         return data
     }
@@ -63,9 +52,8 @@ class FiltersViewModel(
     // не нужно в одном проекте использовать разные подходы для асинхронной обработки данных
     // если применяешь корутины то используй только корутины, если RX то только RX
     private fun loadData() {
-        api.getDataForFilter()
-            // шедулеры нужно тогда уж тоже инъецировать с помощью ServiceLocator, раз уже ты в ручную инъецируешь
-            .subscribeOn(Schedulers.io())
+        serviceLocator.getDataApi().getDataForFilter()
+            .subscribeOn(serviceLocator.getScheduler())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : Observer<DataWrapper?> {
 

@@ -37,19 +37,16 @@ class ExtendedChipGroup : ChipGroup {
     fun setChips(chipsList: List<String>) {
         removeAllViews()
         lastChipsList.clear()
-            // тренируй навык работы со стримами, они сокращают код и больше соответствуют стилистике котлин
-        for (chipListItem in chipsList) {
-            if (chipListItem.isNotEmpty()) {
-                val chip = Chip(context)
-                val chipDrawable = ChipDrawable.createFromAttributes(context, null,
-                    0, R.style.Widget_MaterialComponents_Chip_Choice)
-                // для работы с одной и той же переменной используй соответствующие функции котлин with, let, also
-                chip.setChipDrawable(chipDrawable)
-                chip.text = chipListItem
-                chip.isCheckable = true
-                lastChipsList.add(chipListItem)
-                addView(chip)
+        chipsList.forEach { a ->
+            val chip = Chip(context)
+            chip.apply {
+                setChipDrawable(ChipDrawable.createFromAttributes(context, null,
+                    0, R.style.Widget_MaterialComponents_Chip_Choice))
+                text = a
+                isCheckable = true
             }
+            lastChipsList.add(a)
+            addView(chip)
         }
     }
 
@@ -88,30 +85,30 @@ class ExtendedChipGroup : ChipGroup {
                     childTop = childBottom
                     if (row == maxRow && (penultimate) > 0) {
                         val showChip = (getChildAt(penultimate) as Chip)
-                        showChip.text = CHIP_MORE_TITLE
-                        showChip.isCheckable = false
-                        showChip.setOnClickListener {
-                            maxRow = Int.MAX_VALUE
-                            setChips(ArrayList(lastChipsList))
+                        showChip.apply {
+                            text = CHIP_MORE_TITLE
+                            isCheckable = false
+                            setOnClickListener {
+                                maxRow = Int.MAX_VALUE
+                                setChips(ArrayList(lastChipsList))
+                            }
                         }
                     }
                     row++
                 }
-                child.visibility = if (row > maxRow) View.GONE else View.VISIBLE
-                child.setTag(R.id.row_index_key, row - 1)
-                childEnd = childStart + startMargin + child.measuredWidth
-                childBottom = childTop + child.measuredHeight
-                if (isRtl) {
-                    child.layout(
-                        maxChildEnd - childEnd,
-                        childTop,
-                        maxChildEnd - childStart - startMargin,
-                        childBottom
-                    )
-                } else {
-                   child.layout(childStart + startMargin, childTop, childEnd, childBottom)
+                child.apply {
+                    visibility = if (row > maxRow) View.GONE else View.VISIBLE
+                    setTag(R.id.row_index_key, row - 1)
+                    childEnd = childStart + startMargin + measuredWidth
+                    childBottom = childTop + measuredHeight
+                    if (isRtl) {
+                        layout(maxChildEnd - childEnd, childTop,
+                            maxChildEnd - childStart - startMargin, childBottom)
+                    } else {
+                        layout(childStart + startMargin, childTop, childEnd, childBottom)
+                    }
+                    childStart += startMargin + endMargin + measuredWidth + ITEM_SPACING
                 }
-                childStart += startMargin + endMargin + child.measuredWidth + ITEM_SPACING
             }
         }
     }
