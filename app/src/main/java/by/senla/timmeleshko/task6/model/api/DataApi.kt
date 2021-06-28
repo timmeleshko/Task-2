@@ -6,6 +6,7 @@ import by.senla.timmeleshko.task6.model.dto.DataWrapper
 import by.senla.timmeleshko.task6.model.dto.MediaDto
 import by.senla.timmeleshko.task6.model.dto.WorkDto
 import io.reactivex.Observable
+import kotlinx.coroutines.Deferred
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -17,7 +18,7 @@ import retrofit2.http.Query
 interface DataApi {
 
     @GET("works.search?count_filters=20&extends=works.media_id,works.counters,works.properties,works.collection_id,works.infos,works.description,filters.uri,works.aset_ids,works.artist_ids,works.media_id&with_filters=y&filter_prefixes=salest,genre,style,tech&artist_id=65")
-    fun getDataForFilter(): Observable<DataWrapper>
+    suspend fun getDataForFilterAsync(): DataWrapper
 
     @GET("works.search?count_filters=20&extends=works.media_id,works.counters,works.properties,works.collection_id,works.infos,works.description,filters.uri,works.aset_ids,works.artist_ids,works.media_id&with_filters=y&filter_prefixes=salest,genre,style,tech&artist_id=65")
     suspend fun getData(
@@ -44,7 +45,6 @@ interface DataApi {
             return Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .client(client)
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
                 .create(DataApi::class.java)

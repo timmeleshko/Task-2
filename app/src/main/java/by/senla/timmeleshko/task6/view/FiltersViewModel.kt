@@ -3,15 +3,15 @@ package by.senla.timmeleshko.task6.view
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import by.senla.timmeleshko.task6.model.ServiceLocator
 import by.senla.timmeleshko.task6.model.dto.Data
-import by.senla.timmeleshko.task6.model.dto.DataWrapper
 import by.senla.timmeleshko.task6.model.dto.FilterDto
 import by.senla.timmeleshko.task6.model.dto.GeneralData
 import by.senla.timmeleshko.task6.view.FiltersViewModel.FiltersViewModelConstants.FILTER_SALEST
-import io.reactivex.Observer
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class FiltersViewModel(
     private val serviceLocator: ServiceLocator
@@ -49,24 +49,18 @@ class FiltersViewModel(
         return data
     }
 
-    // не нужно в одном проекте использовать разные подходы для асинхронной обработки данных
-    // если применяешь корутины то используй только корутины, если RX то только RX
     private fun loadData() {
-        serviceLocator.getDataApi().getDataForFilter()
-            .subscribeOn(serviceLocator.getScheduler())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : Observer<DataWrapper?> {
+        try {
+            viewModelScope.launch {
+                val asyncData = getDataFromServerAsync()
+                data.value = asyncData.data?.let { loadFilters(it) }
+            }
+        } catch (e: RuntimeException) {
+            e.printStackTrace()
+        }
+    }
 
-                override fun onSubscribe(d: Disposable) {}
-                override fun onComplete() {}
-
-                override fun onError(e: Throwable) {
-                    e.printStackTrace()
-                }
-
-                override fun onNext(t: DataWrapper) {
-                    data.value = t.data?.let { loadFilters(it) }
-                }
-            })
+    private suspend fun getDataFromServerAsync() = withContext(Dispatchers.IO) {
+        serviceLocator.getDataApi().getDataForFilterAsync()
     }
 }

@@ -48,8 +48,6 @@ class MainActivity : AppCompatActivity() {
         const val FOOTER_VIEW_TYPE = 2
     }
 
-    @ExperimentalCoroutinesApi
-    @InternalCoroutinesApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -120,7 +118,6 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    @InternalCoroutinesApi
     private fun initWorksAdapter() {
         worksAdapter = WorksAdapter(this@MainActivity)
         lifecycleScope.launchWhenCreated {

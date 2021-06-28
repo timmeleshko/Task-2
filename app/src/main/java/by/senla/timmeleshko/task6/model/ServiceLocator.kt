@@ -28,7 +28,6 @@ interface ServiceLocator {
 
     fun getRepository(type: WorkRepository.Type): WorkRepository
     fun getDataApi(): DataApi
-    fun getScheduler(): Scheduler
 }
 
 open class DefaultServiceLocator(val app: Application, val useInMemoryDb: Boolean) : ServiceLocator {
@@ -39,12 +38,6 @@ open class DefaultServiceLocator(val app: Application, val useInMemoryDb: Boolea
     private val api by lazy {
         DataApi.create()
     }
-
-    private val sch by lazy {
-        Schedulers.io()
-    }
-
-    override fun getScheduler(): Scheduler = sch
 
     override fun getRepository(type: WorkRepository.Type): WorkRepository {
         return DbWorkRepository(dataDb = db, dataApi = getDataApi())
