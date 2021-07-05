@@ -2,6 +2,7 @@ package by.senla.timmeleshko.task6.model
 
 import android.app.Application
 import android.content.Context
+import android.support.annotation.VisibleForTesting
 import by.senla.timmeleshko.task6.model.api.DataApi
 import by.senla.timmeleshko.task6.model.db.DataDb
 import by.senla.timmeleshko.task6.model.repository.DbWorkRepository
@@ -23,6 +24,14 @@ interface ServiceLocator {
                 }
                 return instance!!
             }
+        }
+
+        /**
+         * Allows tests to replace the default implementations.
+         */
+        @VisibleForTesting
+        fun swap(locator: ServiceLocator) {
+            instance = locator
         }
     }
 

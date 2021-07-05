@@ -1,5 +1,7 @@
 package by.senla.timmeleshko.task6.view
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.widget.ProgressBar
 import androidx.activity.viewModels
@@ -38,6 +40,12 @@ class MainActivity : AppCompatActivity() {
     private lateinit var worksAdapter: WorksAdapter
     private lateinit var worksConcatAdapter: ConcatAdapter
     private lateinit var concatAdapter: ConcatAdapter
+
+    companion object {
+        fun intentFor(context: Context): Intent {
+            return Intent(context, MainActivity::class.java)
+        }
+    }
 
     object MainActivityConstants {
         const val COLUMNS_COUNT = 2
@@ -112,7 +120,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
         filtersViewModel.getData().observe(this@MainActivity, Observer { data ->
-            data.filters.let {
+            data?.filters.let {
                 headerAdapter.updateFilters(it)
             }
         })

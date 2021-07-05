@@ -63,8 +63,8 @@ class PageKeyedRemoteMediator(
                 uris = uri
             ).data
 
-            val newOffset = (data.works.size + (loadKey?.toInt() ?: 0)).toString()
             val items = data.works
+            val newOffset = (items.size + (loadKey?.toInt() ?: 0)).toString()
             data.media?.let { media -> checkMediaId(items, media) }
 
             dataDb.withTransaction {
