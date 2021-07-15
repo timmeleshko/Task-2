@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import by.senla.timmeleshko.task6.model.ServiceLocator
+import by.senla.timmeleshko.task6.model.api.DataApi
 import by.senla.timmeleshko.task6.model.dto.Data
 import by.senla.timmeleshko.task6.model.dto.FilterDto
 import by.senla.timmeleshko.task6.model.dto.GeneralData
@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class FiltersViewModel(
-    private val serviceLocator: ServiceLocator
+    private val dataApi: DataApi
 ) : ViewModel() {
 
     object FiltersViewModelConstants {
@@ -61,6 +61,6 @@ class FiltersViewModel(
     }
 
     private suspend fun getDataFromServerAsync() = withContext(Dispatchers.IO) {
-        serviceLocator.getDataApi().getDataForFilterAsync()
+        dataApi.getDataForFilterAsync()
     }
 }

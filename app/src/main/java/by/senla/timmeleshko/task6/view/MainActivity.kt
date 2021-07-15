@@ -12,8 +12,9 @@ import androidx.paging.LoadState
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import by.senla.timmeleshko.task6.App
 import by.senla.timmeleshko.task6.R
-import by.senla.timmeleshko.task6.model.ServiceLocator
+import by.senla.timmeleshko.task6.model.api.DataApi
 import by.senla.timmeleshko.task6.model.paging.asMergedLoadStates
 import by.senla.timmeleshko.task6.model.repository.WorkRepository
 import by.senla.timmeleshko.task6.utils.dpToPx
@@ -29,6 +30,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.filter
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
 
@@ -39,6 +41,11 @@ class MainActivity : AppCompatActivity() {
     private lateinit var worksConcatAdapter: ConcatAdapter
     private lateinit var concatAdapter: ConcatAdapter
 
+    @Inject
+    lateinit var workRepository: WorkRepository
+    @Inject
+    lateinit var dataApi: DataApi
+
     companion object {
         fun intentFor(context: Context): Intent {
             return Intent(context, MainActivity::class.java)
@@ -48,13 +55,14 @@ class MainActivity : AppCompatActivity() {
     object MainActivityConstants {
         const val COLUMNS_COUNT = 2
         const val COLUMNS_COUNT_EMPTY = 1
-        const val ITEMS_OFFSET = 15
+        const val ITEMS_OFFSET = 16
         const val DATA_VIEW_TYPE = 1
         const val FOOTER_VIEW_TYPE = 2
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        (application as App).appComponent().inject(this)
         setContentView(R.layout.activity_main)
 
         recyclerView = findViewById(R.id.worksList)
@@ -91,14 +99,14 @@ class MainActivity : AppCompatActivity() {
                 modelClass: Class<T>,
                 handle: SavedStateHandle
             ): T {
-                val repo = ServiceLocator.instance(this@MainActivity).getRepository(WorkRepository.Type.DB)
                 @Suppress("UNCHECKED_CAST")
-                return WorksViewModel(repo, handle) as T
+                return WorksViewModel(workRepository, handle) as T
             }
         }
     }
+
     private val filtersViewModel: FiltersViewModel by viewModels {
-        FilterViewModelFactory(ServiceLocator.instance(this@MainActivity))
+        FilterViewModelFactory(dataApi)
     }
 
     private fun initHeaderAdapter() {
