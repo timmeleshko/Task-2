@@ -6,6 +6,7 @@ import android.view.View
 import androidx.core.view.MarginLayoutParamsCompat
 import androidx.core.view.ViewCompat
 import by.senla.timmeleshko.task6.R
+import by.senla.timmeleshko.task6.view.MainActivity.MainActivityConstants.ITEMS_OFFSET
 import by.senla.timmeleshko.task6.view.customView.ExtendedChipGroup.ExtendedChipGroupConstants.CHIP_MORE_TITLE
 import by.senla.timmeleshko.task6.view.customView.ExtendedChipGroup.ExtendedChipGroupConstants.ITEM_SPACING
 import by.senla.timmeleshko.task6.view.customView.ExtendedChipGroup.ExtendedChipGroupConstants.MAX_ROW

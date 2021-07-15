@@ -20,12 +20,10 @@ import by.senla.timmeleshko.task6.utils.dpToPx
 import by.senla.timmeleshko.task6.view.MainActivity.MainActivityConstants.COLUMNS_COUNT
 import by.senla.timmeleshko.task6.view.MainActivity.MainActivityConstants.COLUMNS_COUNT_EMPTY
 import by.senla.timmeleshko.task6.view.MainActivity.MainActivityConstants.DATA_VIEW_TYPE
-import by.senla.timmeleshko.task6.view.MainActivity.MainActivityConstants.HORIZONTAL_COLUMN_MARGIN
-import by.senla.timmeleshko.task6.view.MainActivity.MainActivityConstants.VERTICAL_COLUMN_MARGIN
+import by.senla.timmeleshko.task6.view.MainActivity.MainActivityConstants.ITEMS_OFFSET
 import by.senla.timmeleshko.task6.view.adapters.HeaderAdapter
 import by.senla.timmeleshko.task6.view.adapters.WorksAdapter
 import by.senla.timmeleshko.task6.view.adapters.WorksLoadStateAdapter
-import com.rubensousa.decorator.GridSpanMarginDecoration
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
@@ -50,8 +48,7 @@ class MainActivity : AppCompatActivity() {
     object MainActivityConstants {
         const val COLUMNS_COUNT = 2
         const val COLUMNS_COUNT_EMPTY = 1
-        const val VERTICAL_COLUMN_MARGIN = 16
-        const val HORIZONTAL_COLUMN_MARGIN = 16
+        const val ITEMS_OFFSET = 15
         const val DATA_VIEW_TYPE = 1
         const val FOOTER_VIEW_TYPE = 2
     }
@@ -79,15 +76,10 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+        val itemDecoration = OffsetDecorator(dpToPx(ITEMS_OFFSET))
         recyclerView.apply {
             layoutManager = gridLayoutManager
-            addItemDecoration(
-                GridSpanMarginDecoration(
-                    verticalMargin = dpToPx(VERTICAL_COLUMN_MARGIN),
-                    horizontalMargin = dpToPx(HORIZONTAL_COLUMN_MARGIN),
-                    gridLayoutManager = gridLayoutManager
-                )
-            )
+            addItemDecoration(itemDecoration)
             adapter = concatAdapter
         }
     }
